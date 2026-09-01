@@ -1387,13 +1387,15 @@ tr:hover td {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(4px);
-  z-index: 500;
+  z-index: 1500;
   display: none; /* Controlado JS */
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -1406,10 +1408,12 @@ tr:hover td {
   box-shadow: var(--shadow-3);
   width: 100%;
   max-width: 520px;
-  overflow: hidden;
-  animation: modalIn 0.3s cubic-bezier(0.2, 0, 0, 1);
+  max-height: 90vh;
+  max-height: 90dvh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  animation: modalIn 0.25s cubic-bezier(0.2, 0, 0, 1);
 }
 
 @keyframes modalIn {
@@ -1418,17 +1422,19 @@ tr:hover td {
 }
 
 .modal-header {
-  padding: 20px 24px;
+  flex-shrink: 0;
+  padding: 16px 20px;
   border-bottom: 1.5px solid var(--outline-variant);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--surface);
 }
 
 .modal-title {
   font-family: var(--font-title);
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
 }
 
 .modal-close-btn {
@@ -1436,23 +1442,49 @@ tr:hover td {
   border: none;
   color: var(--secondary);
   cursor: pointer;
+  padding: 4px;
 }
 
 .modal-body {
-  padding: 24px;
+  flex: 1 1 auto;
+  padding: 18px 20px;
   overflow-y: auto;
-  max-height: 70vh;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .modal-footer {
-  padding: 16px 24px;
+  flex-shrink: 0;
+  padding: 14px 20px;
   border-top: 1.5px solid var(--outline-variant);
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+  background-color: var(--surface);
+}
+
+@media (max-width: 600px) {
+  .modal-overlay {
+    padding: 8px;
+    align-items: center;
+  }
+  .modal-card {
+    max-height: 92dvh;
+  }
+  .modal-header {
+    padding: 14px 16px;
+  }
+  .modal-body {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .modal-footer {
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+  }
 }
 
 /* Botones */
@@ -2056,9 +2088,9 @@ tr:hover td {
                   placeholder="Código de Caja (ej: SKP-0002)" onkeydown="if(event.key === 'Enter') handleOpenBox();">
               </div>
               <div class="flex gap-10 justify-between mt-10 flex-wrap">
-                <button class="btn btn-secondary" onclick="toggleBoxCameraScanner()" style="flex: 1; min-width: 130px;"
+                <button class="btn btn-secondary" onclick="startBoxCameraScanner()" style="flex: 1; min-width: 130px;"
                   id="btn-scan-box-camera">
-                  <span class="material-icons-round">videocam</span>
+                  <span class="material-icons-round">qr_code_scanner</span>
                   <span>Cámara en Vivo</span>
                 </button>
                 <label class="btn btn-secondary" style="flex: 1; min-width: 130px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
@@ -2071,11 +2103,6 @@ tr:hover td {
                   <span>Cargar Caja</span>
                 </button>
               </div>
-            </div>
-
-            <!-- Contenedor del lector de cámara para la caja -->
-            <div id="box-camera-scanner" class="camera-scanner-container">
-              <div id="box-reader"></div>
             </div>
           </div>
 
@@ -2091,7 +2118,7 @@ tr:hover td {
 
               <div class="active-box-progress">
                 <div class="progress-info">
-                  <span>Revisión Física</span>
+                  <span>Revisión con Folios</span>
                   <span id="active-box-progress-text">0/0</span>
                 </div>
                 <div class="progress-bar-container">
@@ -2105,16 +2132,16 @@ tr:hover td {
                   <span class="val" id="active-box-responsable">-</span>
                 </li>
                 <li>
-                  <span class="label">Observaciones:</span>
-                  <span class="val" id="active-box-obs">-</span>
-                </li>
-                <li>
-                  <span class="label">Total Logística:</span>
+                  <span class="label">Total en BD:</span>
                   <span class="val" id="active-box-total-log">0</span>
                 </li>
                 <li>
-                  <span class="label">Total Revisados:</span>
-                  <span class="val" id="active-box-total-reg">0</span>
+                  <span class="label">Ubicados (Ráfaga):</span>
+                  <span class="val" id="active-box-total-ubicados" style="color: #0284c7; font-weight:700;">0</span>
+                </li>
+                <li>
+                  <span class="label">Folios Revisados:</span>
+                  <span class="val" id="active-box-total-reg" style="color: var(--status-success); font-weight:700;">0</span>
                 </li>
               </ul>
 
@@ -2611,12 +2638,12 @@ tr:hover td {
         <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
           <div class="input-group">
             <label class="input-label" for="modal-inv-reg-folders">Folders Encontrados (Físico)</label>
-            <input type="number" id="modal-inv-reg-folders" class="input-field-form" placeholder="Ej: 1" required min="1" value="1" oninput="handleModalCalcStatus()">
+            <input type="number" id="modal-inv-reg-folders" class="input-field-form" placeholder="Ej: 1" required min="1" value="1" oninput="handleModalCalcStatus()" onkeyup="handleModalCalcStatus()" onchange="handleModalCalcStatus()">
           </div>
 
           <div class="input-group">
             <label class="input-label" for="modal-inv-reg-folios">Folios Encontrados (Físico)</label>
-            <input type="number" id="modal-inv-reg-folios" class="input-field-form" placeholder="Ej: 145" required min="0" oninput="handleModalCalcStatus()">
+            <input type="number" id="modal-inv-reg-folios" class="input-field-form" placeholder="Ej: 145" required min="0" oninput="handleModalCalcStatus()" onkeyup="handleModalCalcStatus()" onchange="handleModalCalcStatus()">
           </div>
         </div>
 
@@ -2641,7 +2668,10 @@ tr:hover td {
 
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeModal('modal-inventario-edit')">Cancelar</button>
-        <button class="btn btn-primary" onclick="saveInventarioModalSubmit()">Guardar Registro</button>
+        <button class="btn btn-primary" onclick="saveInventarioModalSubmit()" style="font-weight: 700;">
+          <span class="material-icons-round">save</span>
+          <span>Guardar Registro</span>
+        </button>
       </div>
     </div>
   </div>
@@ -2788,6 +2818,43 @@ tr:hover td {
           <div class="progress-bar" style="width: 0%;" id="sync-modal-bar"></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL: VISOR DE CÁMARA CENTRADO PARA ESCANEAR CAJA -->
+  <div class="camera-scanner-modal" id="modal-camera-box" style="display: none;">
+    <!-- Cabecera del visor -->
+    <div style="width: 100%; max-width: 460px; display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; z-index: 50;">
+      <div class="flex align-center gap-10">
+        <span class="network-badge online"></span>
+        <span style="color: #fff; font-weight: 700; font-size: 1.05rem;">Escanear Código de Caja</span>
+      </div>
+      <button class="btn btn-danger" onclick="stopBoxCameraScanner()" style="padding: 8px 16px; border-radius: var(--radius-xl); font-size: 0.85rem;">
+        <span class="material-icons-round" style="font-size: 18px;">close</span>
+        <span>Cerrar</span>
+      </button>
+    </div>
+
+    <!-- Visor Cuadrado Centrado -->
+    <div class="scanner-view-wrapper">
+      <div id="box-reader"></div>
+
+      <!-- Mira láser y guía -->
+      <div class="scanner-laser-guide">
+        <div class="scanner-target-box">
+          <div class="scanner-laser-line"></div>
+        </div>
+      </div>
+
+      <!-- Flash verde al capturar -->
+      <div class="scan-flash-overlay" id="box-scan-flash-fx"></div>
+    </div>
+
+    <!-- Instrucción inferior -->
+    <div style="width: 100%; max-width: 460px; text-align: center; color: rgba(255,255,255,0.85); z-index: 50;">
+      <p style="font-size: 0.85rem; margin: 0;">
+        Apunta la cámara a la etiqueta de la caja (ej: <b>SKP-0002</b>). Se cargará de inmediato al detectarla.
+      </p>
     </div>
   </div>
 
@@ -4532,18 +4599,22 @@ function restoreActiveBoxFromCache() {
 function renderActiveBoxDetails() {
   document.getElementById('active-box-number').textContent = activeBox.numeroCaja;
   document.getElementById('active-box-responsable').textContent = activeBox.responsable || currentUser.usuario;
-  document.getElementById('active-box-obs').textContent = activeBox.observaciones || 'Sin comentarios';
   document.getElementById('active-box-total-log').textContent = activeBox.cantLog;
   
-  // Calcular cantidad registrada físicamente en caliente
-  const countReg = activeBoxFiles.filter(f => f.registrado).length;
-  document.getElementById('active-box-total-reg').textContent = countReg;
+  // Calcular cantidad ubicada vs con folios confirmados
+  const countUbicados = activeBoxFiles.filter(f => f.ubicado || f.registrado).length;
+  const countRegFolios = activeBoxFiles.filter(f => f.registrado && f.cantidadFoliosReg !== '' && f.cantidadFoliosReg !== null).length;
   
-  // Progreso
-  const progressText = `${countReg}/${activeBox.cantLog}`;
+  const ubicadosElem = document.getElementById('active-box-total-ubicados');
+  if (ubicadosElem) ubicadosElem.textContent = countUbicados;
+  
+  document.getElementById('active-box-total-reg').textContent = countRegFolios;
+  
+  // Progreso de folios completados
+  const progressText = `${countRegFolios}/${activeBox.cantLog}`;
   document.getElementById('active-box-progress-text').textContent = progressText;
   
-  const pct = activeBox.cantLog > 0 ? (countReg / activeBox.cantLog) * 100 : 0;
+  const pct = activeBox.cantLog > 0 ? (countRegFolios / activeBox.cantLog) * 100 : 0;
   document.getElementById('active-box-progress-bar').style.width = `${pct}%`;
   
   // Badge de estado
@@ -4552,29 +4623,29 @@ function renderActiveBoxDetails() {
   badge.className = `badge ${activeBox.estado.toLowerCase().replace(' ', '')}`;
 
   // Validar si todos los expedientes están 100% capturados y con folios confirmados
-  const sinRegistrar = activeBoxFiles.filter(f => !f.registrado || f.estadoRevision === 'Pendiente' || f.cantidadFoliosReg === '' || f.cantidadFoliosReg === null);
+  const sinFolios = activeBoxFiles.filter(f => !f.registrado || f.cantidadFoliosReg === '' || f.cantidadFoliosReg === null || isNaN(f.cantidadFoliosReg));
   const btnCompletar = document.getElementById('btn-completar-caja');
   
   if (activeBox.estado === 'Completada') {
     btnCompletar.disabled = true;
     btnCompletar.className = 'btn btn-secondary';
     btnCompletar.innerHTML = '<span class="material-icons-round">lock</span> Caja Completada';
-  } else if (sinRegistrar.length > 0) {
+  } else if (sinFolios.length > 0) {
     btnCompletar.disabled = true;
     btnCompletar.className = 'btn btn-secondary';
     btnCompletar.style.opacity = '0.65';
-    btnCompletar.title = `Faltan ${sinRegistrar.length} expedientes por capturar y confirmar folios`;
-    btnCompletar.innerHTML = `<span class="material-icons-round">pending_actions</span> Faltan ${sinRegistrar.length} Expedientes`;
+    btnCompletar.title = `Faltan ${sinFolios.length} expedientes por registrar folios físicos`;
+    btnCompletar.innerHTML = `<span class="material-icons-round">pending_actions</span> Faltan ${sinFolios.length} con Folios`;
   } else {
     btnCompletar.disabled = false;
     btnCompletar.className = 'btn btn-primary';
     btnCompletar.style.opacity = '1';
-    btnCompletar.title = 'Todos los expedientes están 100% revisados';
-    btnCompletar.innerHTML = '<span class="material-icons-round">check_circle</span> Completar Caja';
+    btnCompletar.title = 'Todos los expedientes están 100% revisados con folios';
+    btnCompletar.innerHTML = '<span class="material-icons-round">check_circle</span> Completar Caja (100%)';
   }
 }
 
-// Limpia y normaliza números de expedientes que Google Sheets/Excel haya convertido en fechas (ej: Mon Oct 01 1990...)
+// Limpia y normaliza números de expedientes que Google Sheets/Excel haya convertido en fechas
 function cleanExpedienteNumber(rawExp, rawBarcode) {
   if (rawBarcode) {
     const bStr = String(rawBarcode).trim();
@@ -4616,23 +4687,34 @@ function renderActiveBoxFiles() {
   }
 
   container.innerHTML = activeBoxFiles.map((f, index) => {
-    // Limpiar número de expediente si vino como fecha
     f.numeroExpediente = cleanExpedienteNumber(f.numeroExpediente, f.codigoBarra);
     
     const isLocked = activeBox.estado === 'Completada' || (f.estadoRevision === 'Coincide' && f.registrado);
     const lockedClass = isLocked ? 'locked' : '';
-    const badgeClass = f.estadoRevision.toLowerCase().replace(' ', '');
     const logFolders = f.cantidadFolderesLog || 1;
-    const regFolders = f.cantidadFolderesReg !== undefined && f.cantidadFolderesReg !== '' ? f.cantidadFolderesReg : 1;
-    const regFoliosInfo = f.registrado 
-      ? `Físico: <b>${regFolders} folder${regFolders > 1 ? 'es' : ''} | ${f.cantidadFoliosReg} folios</b>` 
-      : 'Físico: <i>Sin revisar</i>';
+    
+    let badgeHtml = '';
+    let regFoliosInfo = '';
+    let cardExtraClass = '';
+
+    if (f.registrado && f.cantidadFoliosReg !== '' && f.cantidadFoliosReg !== null) {
+      const badgeClass = f.estadoRevision.toLowerCase().replace(/ /g, '');
+      badgeHtml = `<span class="badge ${badgeClass}">${f.estadoRevision}</span>`;
+      regFoliosInfo = `Físico: <b>${f.cantidadFolderesReg} folders | ${f.cantidadFoliosReg} folios</b>`;
+    } else if (f.ubicado) {
+      badgeHtml = `<span class="badge ubicado">Ubicado</span>`;
+      regFoliosInfo = `Físico: <b style="color:var(--status-warn); font-size:0.8rem;">⚠️ Falta Conteo de Folios</b>`;
+      cardExtraClass = 'ubicado-card';
+    } else {
+      badgeHtml = `<span class="badge pendiente">Pendiente</span>`;
+      regFoliosInfo = `Físico: <i>Sin escanear</i>`;
+    }
     
     return `
-      <div class="expediente-item-card ${lockedClass}" onclick="handleSelectExpediente(${index})">
+      <div class="expediente-item-card ${lockedClass} ${cardExtraClass}" onclick="handleSelectExpediente(${index})">
         <div class="expediente-item-header">
           <span class="expediente-code">${f.numeroExpediente}</span>
-          <span class="badge ${badgeClass}">${f.estadoRevision}</span>
+          ${badgeHtml}
         </div>
         <div class="expediente-folios">
           Logística: <b>${logFolders} folder${logFolders > 1 ? 'es' : ''} | ${f.cantidadFoliosLog} folios</b>
@@ -4940,16 +5022,29 @@ function openRegisterModal(doc) {
   const inpFolders = document.getElementById('modal-inv-reg-folders');
   if (inpFolders) inpFolders.value = regFoldersVal;
   
-  document.getElementById('modal-inv-reg-folios').value = regFoliosVal;
-  document.getElementById('modal-inv-status').value = doc.estadoRevision === 'Pendiente' ? 'Coincide' : doc.estadoRevision;
+  const inpFolios = document.getElementById('modal-inv-reg-folios');
+  if (inpFolios) inpFolios.value = regFoliosVal;
+
+  const selectStatus = document.getElementById('modal-inv-status');
+  if (doc.estadoRevision && doc.estadoRevision !== 'Pendiente' && doc.estadoRevision !== 'Ubicado') {
+    selectStatus.value = doc.estadoRevision;
+  } else {
+    selectStatus.value = 'Coincide';
+  }
+  
   document.getElementById('modal-inv-obs').value = doc.observaciones || '';
   
   openModal('modal-inventario-edit');
+
+  // Ejecutar cálculo automático inicial si ya hay folios
+  if (regFoliosVal !== '') {
+    handleModalCalcStatus();
+  }
   
-  // Enfocar folios
+  // Enfocar campo de folios para entrada rápida
   setTimeout(() => {
-    document.getElementById('modal-inv-reg-folios').focus();
-  }, 100);
+    if (inpFolios) inpFolios.focus();
+  }, 120);
 }
 
 function handleModalCalcStatus() {
@@ -4958,16 +5053,24 @@ function handleModalCalcStatus() {
 
   const logFoldersElem = document.getElementById('text-inv-log-folders');
   const logFoliosElem = document.getElementById('text-inv-log');
-  const logFolders = logFoldersElem ? (parseInt(logFoldersElem.textContent) || 1) : 1;
-  const logFolios = logFoliosElem ? (parseInt(logFoliosElem.textContent) || 0) : 0;
+  const logFolders = logFoldersElem ? (parseInt(logFoldersElem.textContent, 10) || 1) : 1;
+  const logFolios = logFoliosElem ? (parseInt(logFoliosElem.textContent, 10) || 0) : 0;
 
   const inpFolders = document.getElementById('modal-inv-reg-folders');
   const inpFolios = document.getElementById('modal-inv-reg-folios');
-  const regFolders = inpFolders ? parseInt(inpFolders.value) : 1;
-  const regFolios = parseInt(inpFolios.value);
   const select = document.getElementById('modal-inv-status');
 
-  if (!isNaN(regFolders) && !isNaN(regFolios)) {
+  const regFoldersRaw = inpFolders ? inpFolders.value.trim() : '';
+  const regFoliosRaw = inpFolios ? inpFolios.value.trim() : '';
+
+  if (regFoliosRaw === '') {
+    return;
+  }
+
+  const regFolders = regFoldersRaw !== '' ? parseInt(regFoldersRaw, 10) : 1;
+  const regFolios = parseInt(regFoliosRaw, 10);
+
+  if (!isNaN(regFolios)) {
     if (regFolders === logFolders && regFolios === logFolios) {
       select.value = 'Coincide';
     } else {
@@ -5308,6 +5411,58 @@ async function startCameraScannerHelper(readerId, qrBoxConfig, onSuccess, onErro
   }
 }
 
+// INICIAR CÁMARA PARA ESCANEAR CAJA (MODAL CENTRADO)
+async function startBoxCameraScanner() {
+  const modal = document.getElementById('modal-camera-box');
+  if (modal) modal.style.display = 'flex';
+
+  html5QrBoxScanner = await startCameraScannerHelper(
+    "box-reader",
+    { width: 260, height: 260 },
+    (decodedText) => {
+      const cleanCode = decodedText.trim();
+      playScanBeep(false);
+      playScanVibrate(false);
+
+      const flashEl = document.getElementById('box-scan-flash-fx');
+      if (flashEl) {
+        flashEl.classList.add('active');
+        setTimeout(() => flashEl.classList.remove('active'), 180);
+      }
+
+      document.getElementById('caja-code-input').value = cleanCode;
+      stopBoxCameraScanner();
+      handleOpenBox();
+    },
+    (err) => {
+      showToast(getCameraErrorMessage(err), "error");
+      stopBoxCameraScanner();
+    }
+  );
+}
+
+function stopBoxCameraScanner() {
+  const modal = document.getElementById('modal-camera-box');
+  if (modal) modal.style.display = 'none';
+
+  if (html5QrBoxScanner) {
+    html5QrBoxScanner.stop().then(() => {
+      html5QrBoxScanner = null;
+    }).catch(err => {
+      console.error("Error al detener cámara de caja:", err);
+      html5QrBoxScanner = null;
+    });
+  }
+}
+
+function toggleBoxCameraScanner() {
+  if (html5QrBoxScanner) {
+    stopBoxCameraScanner();
+  } else {
+    startBoxCameraScanner();
+  }
+}
+
 // INICIAR CÁMARA RÁFAGA (CENTRADITA EN PANTALLA COMPLETA)
 async function startDocCameraScanner() {
   if (!activeBox) {
@@ -5363,7 +5518,7 @@ function stopDocCameraScanner() {
   renderActiveBoxFiles();
 }
 
-// PROCESAMIENTO RÁFAGA 100% EN MEMORIA
+// PROCESAMIENTO RÁFAGA 100% EN MEMORIA (SOLO MARCA UBICADO, NO AUTORELLENA FOLIOS)
 function processScannedCodeInBurst(code) {
   if (!activeBox || !activeBoxFiles) return;
 
@@ -5404,20 +5559,15 @@ function processScannedCodeInBurst(code) {
     triggerCameraScanFlash(`⚠️ ${parsedExpediente || rawClean} no es de esta caja`, true);
   } else {
     // Tomar el primer match (o el primero pendiente)
-    let selectedIdx = matchingIndices.find(idx => !activeBoxFiles[idx].registrado) ?? matchingIndices[0];
+    let selectedIdx = matchingIndices.find(idx => !activeBoxFiles[idx].ubicado && !activeBoxFiles[idx].registrado) ?? matchingIndices[0];
     const doc = activeBoxFiles[selectedIdx];
 
-    // Marcar como ubicado en memoria local
-    doc.registrado = true;
+    // Marcar únicamente como UBICADO físicamente en la caja (Control de Calidad: NO auto-rellenar folios)
     doc.ubicado = true;
-    if (!doc.estadoRevision || doc.estadoRevision === 'Pendiente') {
+    if (!doc.registrado || doc.cantidadFoliosReg === '') {
       doc.estadoRevision = 'Ubicado';
-    }
-    if (doc.cantidadFolderesReg === undefined || doc.cantidadFolderesReg === '') {
-      doc.cantidadFolderesReg = doc.cantidadFolderesLog || 1;
-    }
-    if (doc.cantidadFoliosReg === undefined || doc.cantidadFoliosReg === '') {
-      doc.cantidadFoliosReg = doc.cantidadFoliosLog;
+      doc.cantidadFolderesReg = doc.cantidadFolderesReg !== undefined && doc.cantidadFolderesReg !== '' ? doc.cantidadFolderesReg : '';
+      doc.cantidadFoliosReg = doc.cantidadFoliosReg !== undefined && doc.cantidadFoliosReg !== '' ? doc.cantidadFoliosReg : '';
     }
     doc.responsable = currentUser.usuario;
     doc.fechaRevision = new Date().toISOString();
@@ -5440,25 +5590,31 @@ function processScannedCodeInBurst(code) {
 function handleGuardarAvanceCaja() {
   if (!activeBox) return;
 
-  const ubicados = activeBoxFiles.filter(f => f.registrado || f.ubicado);
-  if (ubicados.length === 0) {
-    showToast('Aún no has ubicado ningún expediente en esta caja.', 'warn');
+  const revisadosConFolios = activeBoxFiles.filter(f => f.registrado && f.cantidadFoliosReg !== '' && f.cantidadFoliosReg !== null && !isNaN(f.cantidadFoliosReg));
+  const soloUbicadosSinFolios = activeBoxFiles.filter(f => f.ubicado && (!f.registrado || f.cantidadFoliosReg === '' || f.cantidadFoliosReg === null));
+
+  if (revisadosConFolios.length === 0) {
+    if (soloUbicadosSinFolios.length > 0) {
+      showToast(`Tienes ${soloUbicadosSinFolios.length} expedientes marcados como UBICADOS. Toca cada tarjeta para contar e ingresar sus folios físicos antes de sincronizar.`, 'warn');
+    } else {
+      showToast('Aún no has revisado ni ingresado folios de ningún expediente en esta caja.', 'warn');
+    }
     return;
   }
 
-  showToast(`Sincronizando ${ubicados.length} expedientes de la caja ${activeBox.numeroCaja}...`, 'info');
+  showToast(`Sincronizando ${revisadosConFolios.length} expedientes revisados de la caja ${activeBox.numeroCaja}...`, 'info');
 
-  const recordsToSync = ubicados.map(f => ({
+  const recordsToSync = revisadosConFolios.map(f => ({
     idLocal: 'LOC-' + (f.idDoc || f.numeroExpediente) + '-' + Date.now(),
     idDoc: f.idDoc,
     numeroCaja: activeBox.numeroCaja,
     numeroExpediente: f.numeroExpediente,
     codigoBarra: f.codigoBarra || '',
     cantidadFolderesLog: f.cantidadFolderesLog || 1,
-    cantidadFolderesReg: f.cantidadFolderesReg !== '' && f.cantidadFolderesReg !== undefined ? f.cantidadFolderesReg : (f.cantidadFolderesLog || 1),
+    cantidadFolderesReg: parseInt(f.cantidadFolderesReg) || 1,
     cantidadFoliosLog: f.cantidadFoliosLog || 0,
-    cantidadFoliosReg: f.cantidadFoliosReg !== '' && f.cantidadFoliosReg !== undefined ? f.cantidadFoliosReg : f.cantidadFoliosLog,
-    estadoRevision: f.estadoRevision === 'Ubicado' ? 'Coincide' : f.estadoRevision,
+    cantidadFoliosReg: parseInt(f.cantidadFoliosReg) || 0,
+    estadoRevision: f.estadoRevision,
     observaciones: f.observaciones || '',
     responsable: currentUser.usuario
   }));
@@ -5467,18 +5623,18 @@ function handleGuardarAvanceCaja() {
 
   if (!isOnline) {
     recordsToSync.forEach(r => addToOfflineQueue(r));
-    showToast(`Guardado en memoria local (${ubicados.length} expedientes). Se sincronizará al volver a estar en línea.`, 'success');
+    showToast(`Guardado en memoria local (${revisadosConFolios.length} expedientes). Se sincronizará al volver a estar en línea.`, 'success');
     return;
   }
 
-  // Sincronización en lote
+  // Sincronización en lote a Azure SQL
   callApi('syncOfflineRecords', recordsToSync)
     .then(res => {
-      showToast(`✔ ¡Caja ${activeBox.numeroCaja} sincronizada con éxito en Azure SQL Server!`, 'success');
-      // Actualizar estados
-      ubicados.forEach(f => {
-        if (f.estadoRevision === 'Ubicado') f.estadoRevision = 'Coincide';
-      });
+      let msg = `✔ ¡Se sincronizaron ${revisadosConFolios.length} expedientes con éxito en Azure SQL!`;
+      if (soloUbicadosSinFolios.length > 0) {
+        msg += ` (Aún faltan ${soloUbicadosSinFolios.length} expedientes por contar folios).`;
+      }
+      showToast(msg, 'success');
       localStorage.setItem('activeBoxFiles', JSON.stringify(activeBoxFiles));
       renderActiveBoxDetails();
       renderActiveBoxFiles();
