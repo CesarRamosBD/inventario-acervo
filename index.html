@@ -1227,6 +1227,26 @@ header {
   box-shadow: var(--shadow-1);
 }
 
+/* Tarjeta Registrada con Folios (Verde Claro) */
+.expediente-item-card.registrado-card,
+.expediente-item-card.revisado-card {
+  background-color: #f0fdf4 !important; /* Verde claro muy nítido */
+  border: 1.5px solid #22c55e !important; /* Borde verde esmeralda */
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.12);
+}
+
+.dark-mode .expediente-item-card.registrado-card,
+.dark-mode .expediente-item-card.revisado-card {
+  background-color: hsl(140, 45%, 12%) !important;
+  border-color: hsl(140, 70%, 35%) !important;
+}
+
+.expediente-item-card.registrado-card:hover,
+.expediente-item-card.revisado-card:hover {
+  border-color: #16a34a !important;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.22);
+}
+
 .expediente-item-card.locked {
   opacity: 0.75;
   background-color: var(--surface-variant);
@@ -1719,6 +1739,186 @@ tr:hover td {
 .bold { font-weight: 700; }
 .font-title { font-family: var(--font-title); }
 
+/* =========================================================
+   NUEVOS ESTILOS: PRODUCTIVIDAD, LINTERNA Y ACTAS OFICIALES
+   ========================================================= */
+
+/* Botón flotante de linterna (Torch) */
+.btn-torch-toggle {
+  background: rgba(15, 23, 42, 0.85);
+  color: #fbbf24;
+  border: 1.5px solid rgba(251, 191, 36, 0.6);
+  border-radius: var(--radius-xl);
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+}
+
+.btn-torch-toggle.active {
+  background: #fbbf24;
+  color: #0f172a;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.8);
+}
+
+/* Modal de Conteo Continuo (Folios Rápidos) */
+.continuous-folios-card {
+  text-align: center;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+}
+
+.continuous-folios-input {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  letter-spacing: 2px !important;
+  height: 70px !important;
+  border-radius: var(--radius-m) !important;
+  border: 2.5px solid var(--primary) !important;
+  background-color: var(--primary-container) !important;
+  color: var(--on-primary-container) !important;
+}
+
+/* Canvas de Firmas Digitales (ONP & Polysistemas) */
+.signature-box {
+  background: #ffffff;
+  border: 2px dashed #94a3b8;
+  border-radius: var(--radius-m);
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.signature-canvas {
+  width: 100%;
+  height: 140px;
+  display: block;
+}
+
+.signature-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+/* Tabla de Productividad en Vivo */
+.leaderboard-table th {
+  background-color: var(--surface-variant);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.leaderboard-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.leaderboard-badge.gold { background: #fef08a; color: #854d0e; border: 1.5px solid #eab308; }
+.leaderboard-badge.silver { background: #e2e8f0; color: #334155; border: 1.5px solid #94a3b8; }
+.leaderboard-badge.bronze { background: #ffedd5; color: #9a3412; border: 1.5px solid #f97316; }
+
+/* Estilos de Impresión Oficial de Actas */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-acta-container, #printable-acta-container * {
+    visibility: visible;
+  }
+  #printable-acta-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    padding: 20px;
+    font-size: 11pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Animaciones Principales */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulseOnce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes flashSuccess {
+  0% { background-color: var(--status-success-bg); }
+  50% { background-color: rgba(34, 197, 94, 0.35); }
+  100% { background-color: var(--status-success-bg); }
+}
+
+@keyframes flashError {
+  0% { background-color: var(--status-error-bg); }
+  50% { background-color: rgba(239, 68, 68, 0.35); }
+  100% { background-color: var(--status-error-bg); }
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.94) translateY(-10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-overlay.active .modal-card {
+  animation: fadeInModal 0.25s cubic-bezier(.4, 0, .2, 1);
+}
+
+.tx-flash-success {
+  animation: flashSuccess 0.6s ease;
+}
+
+.tx-flash-error {
+  animation: flashError 0.6s ease;
+}
+
+.tx-slide-in {
+  animation: slideInUp 0.3s ease;
+}
+
+.kpi-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
 </style>
 
   <!-- Librerías Externas desde CDN -->
@@ -1751,7 +1951,7 @@ tr:hover td {
           <label class="input-label" for="login-username">Usuario</label>
           <div class="input-field-container">
             <span class="material-icons-round">person</span>
-            <input type="text" id="login-username" class="input-field" placeholder="Ingresa tu usuario" required>
+            <input type="text" id="login-username" class="input-field" placeholder="Ingresa tu usuario" required onkeydown="if(event.key === 'Enter') handleLogin();">
           </div>
         </div>
 
@@ -1759,11 +1959,11 @@ tr:hover td {
           <label class="input-label" for="login-password">Contraseña</label>
           <div class="input-field-container">
             <span class="material-icons-round">lock</span>
-            <input type="password" id="login-password" class="input-field" placeholder="Ingresa tu contraseña" required>
+            <input type="password" id="login-password" class="input-field" placeholder="Ingresa tu contraseña" required onkeydown="if(event.key === 'Enter') handleLogin();">
           </div>
         </div>
 
-        <button type="submit" class="login-btn" id="login-btn">
+        <button type="button" class="login-btn" id="login-btn" onclick="handleLogin()">
           <span>Ingresar</span>
           <span class="material-icons-round">arrow_forward</span>
         </button>
@@ -1828,6 +2028,12 @@ tr:hover td {
             <span class="sidebar-link-text">Reporte Producción</span>
           </a>
         </li>
+        <li class="sidebar-item" id="menu-avance-produccion" style="display:none;">
+          <a class="sidebar-link" onclick="switchView('produccion')">
+            <span class="material-icons-round">bar_chart</span>
+            <span class="sidebar-link-text">Avance de Producción</span>
+          </a>
+        </li>
         <li class="sidebar-item" id="menu-importar" style="display:none;">
           <a class="sidebar-link" onclick="openImportModal()">
             <span class="material-icons-round">upload_file</span>
@@ -1838,6 +2044,12 @@ tr:hover td {
           <a class="sidebar-link" onclick="switchView('incidencias')">
             <span class="material-icons-round">warning_amber</span>
             <span class="sidebar-link-text">Incidencias</span>
+          </a>
+        </li>
+        <li class="sidebar-item" id="menu-actas">
+          <a class="sidebar-link" onclick="switchView('actas')">
+            <span class="material-icons-round">fact_check</span>
+            <span class="sidebar-link-text">Actas de Transferencia</span>
           </a>
         </li>
         <li class="sidebar-item" id="menu-usuarios">
@@ -2043,7 +2255,7 @@ tr:hover td {
         </div>
 
         <!-- Cajas Recientes (Admin/Supervisor) -->
-        <div id="panel-cajas-recientes" class="dashboard-recent">
+        <div id="panel-cajas-recientes" class="dashboard-recent mb-20">
           <span class="chart-card-title" style="display: block; margin-bottom: 15px;">Monitoreo Reciente de Cajas</span>
           <div class="table-responsive">
             <table>
@@ -2060,6 +2272,41 @@ tr:hover td {
               <tbody id="dashboard-recent-boxes-body">
                 <tr>
                   <td colspan="6" class="text-center">Cargando datos recientes...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Ranking y Productividad en Vivo por Operador -->
+        <div id="panel-productivity-leaderboard" class="chart-card mb-20" style="border-left: 4px solid var(--status-success);">
+          <div class="flex justify-between align-center mb-10">
+            <div class="flex align-center gap-10">
+              <span class="material-icons-round" style="color: var(--status-success); font-size: 26px;">leaderboard</span>
+              <div>
+                <span class="chart-card-title" style="margin:0;">Productividad del Equipo en Tiempo Real</span>
+                <p class="login-subtitle" style="margin:0; font-size: 0.75rem;">Rendimiento de operadores y avance de expedientes hoy</p>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="loadProductivityLeaderboard()" style="padding: 6px 12px; font-size: 0.8rem;">
+              <span class="material-icons-round" style="font-size: 16px;">refresh</span>
+              <span>Actualizar</span>
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Pos.</th>
+                  <th>Operador / Responsable</th>
+                  <th>Expedientes Hoy</th>
+                  <th>Folios Físicos Hoy</th>
+                  <th>Cajas Procesadas</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-table-body">
+                <tr>
+                  <td colspan="5" class="text-center">Cargando métricas de productividad...</td>
                 </tr>
               </tbody>
             </table>
@@ -2116,6 +2363,13 @@ tr:hover td {
                 <span class="badge pendiente" id="active-box-badge">En Proceso</span>
               </div>
 
+              <!-- SE2: código físico de caja (permanente) -->
+              <div id="active-box-se2-row" style="display:none; align-items:center; gap: 6px; margin-top: 6px; margin-bottom: 2px;">
+                <span class="material-icons-round" style="font-size:0.95rem; color: var(--text-secondary);">inventory_2</span>
+                <span style="font-size:0.72rem; color: var(--text-secondary); letter-spacing:0.01em;">SE2:</span>
+                <span id="active-box-se2" style="font-family: monospace; font-size: 0.82rem; background: var(--primary-faint, rgba(59,130,246,0.12)); color: var(--primary); padding: 1px 7px; border-radius: 4px; letter-spacing: 0.05em; font-weight: 700;">—</span>
+              </div>
+
               <div class="active-box-progress">
                 <div class="progress-info">
                   <span>Revisión con Folios</span>
@@ -2146,6 +2400,10 @@ tr:hover td {
               </ul>
 
               <div class="flex flex-column gap-10 mt-10" style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="btn btn-primary" onclick="startContinuousFoliosFlow()" style="background-color: var(--primary); font-weight: 700;">
+                  <span class="material-icons-round">bolt</span>
+                  <span>⚡ Conteo Rápido de Folios</span>
+                </button>
                 <button class="btn btn-primary" id="btn-guardar-caja" onclick="handleGuardarAvanceCaja()" style="background-color: var(--status-success);">
                   <span class="material-icons-round">cloud_upload</span>
                   <span>Guardar y Sincronizar</span>
@@ -2244,6 +2502,7 @@ tr:hover td {
               <thead>
                 <tr>
                   <th>Código de Caja</th>
+                  <th>SE2</th>
                   <th>Cant. Expedientes Log</th>
                   <th>Cant. Revisados Físico</th>
                   <th>Apertura</th>
@@ -2279,12 +2538,12 @@ tr:hover td {
                 <div class="input-field-container" style="width: 260px;">
                   <span class="material-icons-round">search</span>
                   <input type="text" id="maestro-search" class="input-field" placeholder="Buscar por expediente o barra"
-                    oninput="loadMaestro(1)">
+                    oninput="scheduleMaestroSearch()">
                 </div>
                 <div class="input-field-container" style="width: 150px;">
                   <span class="material-icons-round">inventory</span>
                   <input type="text" id="maestro-box-filter" class="input-field" placeholder="Filtrar por Caja"
-                    oninput="loadMaestro(1)" style="padding-left: 36px;">
+                    oninput="scheduleMaestroSearch()" style="padding-left: 36px;">
                 </div>
                 <select id="maestro-status-filter" class="select-field-form" style="width: 160px; padding: 6px 12px;"
                   onchange="loadMaestro(1)">
@@ -2556,6 +2815,286 @@ tr:hover td {
         </div>
       </div>
 
+      <!-- VISTA: AVANCE DE PRODUCCIÓN DIARIA (SUPERVISOR / ADMIN) -->
+      <div id="view-produccion" class="view-container">
+        <!-- KPIs Resumen de Producción -->
+        <div class="dashboard-grid mb-20">
+          <div class="kpi-card" style="border-left: 4px solid var(--primary);">
+            <div class="kpi-icon" style="background: var(--primary-container); color: var(--primary);">
+              <span class="material-icons-round">inventory_2</span>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-title">Total Cajas Asignadas</span>
+              <span class="kpi-value" id="prod-kpi-total-cajas">0</span>
+              <span class="kpi-desc" id="prod-kpi-total-exp">0 expedientes en total</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" style="border-left: 4px solid var(--status-success);">
+            <div class="kpi-icon" style="background: var(--status-success-bg, #dcfce7); color: var(--status-success, #16a34a);">
+              <span class="material-icons-round">check_circle</span>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-title">Cajas Completadas (100%)</span>
+              <span class="kpi-value" id="prod-kpi-completadas" style="color: var(--status-success, #16a34a);">0</span>
+              <span class="kpi-desc" id="prod-kpi-completadas-exp">0 expedientes listos</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" style="border-left: 4px solid var(--status-warn, #eab308);">
+            <div class="kpi-icon" style="background: var(--status-warn-bg, #fef9c3); color: var(--status-warn, #ca8a04);">
+              <span class="material-icons-round">pending_actions</span>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-title">En Proceso / Pendientes</span>
+              <span class="kpi-value" id="prod-kpi-pendientes" style="color: var(--status-warn, #ca8a04);">0</span>
+              <span class="kpi-desc" id="prod-kpi-pendientes-exp">0 expedientes por validar</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" style="border-left: 4px solid #0284c7;">
+            <div class="kpi-icon" style="background: rgba(2,132,199,0.12); color: #0284c7;">
+              <span class="material-icons-round">analytics</span>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-title">Avance Global</span>
+              <span class="kpi-value" id="prod-kpi-avance-porc" style="color: #0284c7;">0%</span>
+              <span class="kpi-desc">Validación física en tiempo real</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla de Control de Cajas del Día -->
+        <div class="table-card">
+          <div class="table-controls">
+            <div class="flex justify-between align-center" style="width: 100%; flex-wrap: wrap; gap: 12px;">
+              <div class="flex gap-10 flex-wrap align-center" style="flex-grow: 1;">
+                <div class="search-input-wrapper" style="min-width: 240px;">
+                  <span class="material-icons-round search-icon">search</span>
+                  <input type="text" id="produccion-search" class="input-field search-input"
+                    placeholder="Buscar por Caja, SE2 u Operador..." oninput="filterAvanceProduccion()">
+                </div>
+                <select id="produccion-status-filter" class="select-field-form" style="width: 180px; padding: 7px 12px;"
+                  onchange="filterAvanceProduccion()">
+                  <option value="">Todos los Estados</option>
+                  <option value="Pendiente">Solo Pendientes (0%)</option>
+                  <option value="En Proceso">En Proceso (Incompletas)</option>
+                  <option value="Completada">Completadas (100%)</option>
+                  <option value="Observada">Observadas</option>
+                </select>
+              </div>
+
+              <div class="flex gap-10 align-center">
+                <button class="btn btn-secondary" onclick="loadAvanceProduccion()" title="Recargar Avance">
+                  <span class="material-icons-round">refresh</span>
+                  <span>Actualizar</span>
+                </button>
+                <button class="btn btn-primary" onclick="openImportModal()" title="Cargar más producción">
+                  <span class="material-icons-round">upload_file</span>
+                  <span>Cargar Producción</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Código Caja</th>
+                  <th>Código SE2 (Físico)</th>
+                  <th>Operador Asignado</th>
+                  <th style="text-align: center;">Total Logístico</th>
+                  <th style="text-align: center;">Revisados</th>
+                  <th style="text-align: center;">Faltantes</th>
+                  <th style="min-width: 180px;">Progreso de Validación</th>
+                  <th>Estado</th>
+                  <th style="text-align: center;">Acción</th>
+                </tr>
+              </thead>
+              <tbody id="produccion-table-body">
+                <tr>
+                  <td colspan="9" class="text-center">Consultando avance de producción...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISTA 9: ACTAS DIGITALES DE TRANSFERENCIA (ONP / POLYSISTEMAS) -->
+      <div id="view-actas" class="view-container">
+        <div class="table-card mb-20" style="border-top: 4px solid var(--primary);">
+          <div class="table-controls">
+            <div class="flex justify-between align-center" style="width: 100%; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <h3 class="font-title" style="margin: 0; font-size: 1.2rem;">Generar Nueva Acta de Transferencia</h3>
+                <p class="login-subtitle" style="margin: 0; font-size: 0.8rem;">Selecciona las cajas completadas para emitir el acta oficial de devolución con firmas digitales</p>
+              </div>
+              <button class="btn btn-secondary" onclick="loadCompletedBoxesForActa()">
+                <span class="material-icons-round">refresh</span>
+                <span>Actualizar Cajas Disponibles</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tabla de Cajas Listas para Acta -->
+          <div class="table-responsive" style="max-height: 260px; overflow-y: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 40px; text-align: center;">
+                    <input type="checkbox" id="check-all-acta-boxes" onchange="toggleSelectAllActaBoxes(this)">
+                  </th>
+                  <th>N° Caja</th>
+                  <th>Total Expedientes</th>
+                  <th>Total Folios Físicos</th>
+                  <th>Operador Responsable</th>
+                  <th>Fecha de Cierre</th>
+                </tr>
+              </thead>
+              <tbody id="acta-boxes-table-body">
+                <tr>
+                  <td colspan="6" class="text-center">Cargando cajas completadas...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Resumen de Selección -->
+          <div class="dashboard-grid mt-10" style="padding: 15px 20px; background: var(--surface-variant); margin: 0;">
+            <div class="kpi-card" style="padding: 12px;">
+              <div class="kpi-content">
+                <span class="kpi-title">Cajas Seleccionadas</span>
+                <span class="kpi-value" id="acta-kpi-cajas" style="font-size: 1.8rem;">0</span>
+              </div>
+            </div>
+            <div class="kpi-card" style="padding: 12px;">
+              <div class="kpi-content">
+                <span class="kpi-title">Expedientes Totales</span>
+                <span class="kpi-value" id="acta-kpi-expedientes" style="font-size: 1.8rem; color: var(--primary);">0</span>
+              </div>
+            </div>
+            <div class="kpi-card" style="padding: 12px;">
+              <div class="kpi-content">
+                <span class="kpi-title">Folios Totales</span>
+                <span class="kpi-value" id="acta-kpi-folios" style="font-size: 1.8rem; color: var(--status-success);">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de Firmas Digitales ONP y Polysistemas -->
+          <div style="padding: 20px; display: flex; flex-direction: column; gap: 18px;">
+            <h4 class="font-title" style="margin: 0; color: var(--on-surface);">Datos y Firmas de Responsables de Entrega / Recepción</h4>
+            
+            <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+              
+              <!-- Responsable ONP (Operador) -->
+              <div style="background: var(--surface-variant); padding: 16px; border-radius: var(--radius-m); display: flex; flex-direction: column; gap: 10px;">
+                <div class="flex align-center gap-6" style="color: var(--primary); font-weight: 700;">
+                  <span class="material-icons-round">badge</span>
+                  <span>RESPONSABLE ONP</span>
+                </div>
+                <div class="input-group">
+                  <label class="input-label" for="acta-onp-nombre">Nombres y Apellidos</label>
+                  <input type="text" id="acta-onp-nombre" class="input-field-form" placeholder="Ej: Juan Carlos Pérez Gómez" required>
+                </div>
+                <div class="input-group">
+                  <label class="input-label" for="acta-onp-dni">DNI</label>
+                  <input type="text" id="acta-onp-dni" class="input-field-form" placeholder="8 dígitos" maxlength="8" required>
+                </div>
+                <div class="input-group">
+                  <label class="input-label">Firma Digital / Garabato (Dibuja aquí)</label>
+                  <div class="signature-box">
+                    <canvas id="canvas-firma-onp" class="signature-canvas"></canvas>
+                  </div>
+                  <div class="signature-controls">
+                    <span style="font-size: 0.75rem; color: var(--secondary);">Firma con dedo o puntero</span>
+                    <button type="button" class="btn btn-secondary" onclick="clearSignatureCanvas('onp')" style="padding: 4px 10px; font-size: 0.75rem;">Limpiar</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Responsable Polysistemas -->
+              <div style="background: var(--surface-variant); padding: 16px; border-radius: var(--radius-m); display: flex; flex-direction: column; gap: 10px;">
+                <div class="flex align-center gap-6" style="color: var(--status-success); font-weight: 700;">
+                  <span class="material-icons-round">assignment_ind</span>
+                  <span>RESPONSABLE POLYSISTEMAS</span>
+                </div>
+                <div class="input-group">
+                  <label class="input-label" for="acta-poly-nombre">Nombres y Apellidos</label>
+                  <input type="text" id="acta-poly-nombre" class="input-field-form" placeholder="Ej: César Ramos Delgado" required>
+                </div>
+                <div class="input-group">
+                  <label class="input-label" for="acta-poly-dni">DNI</label>
+                  <input type="text" id="acta-poly-dni" class="input-field-form" placeholder="8 dígitos" maxlength="8" required>
+                </div>
+                <div class="input-group">
+                  <label class="input-label">Firma Digital / Garabato (Dibuja aquí)</label>
+                  <div class="signature-box">
+                    <canvas id="canvas-firma-poly" class="signature-canvas"></canvas>
+                  </div>
+                  <div class="signature-controls">
+                    <span style="font-size: 0.75rem; color: var(--secondary);">Firma con dedo o puntero</span>
+                    <button type="button" class="btn btn-secondary" onclick="clearSignatureCanvas('poly')" style="padding: 4px 10px; font-size: 0.75rem;">Limpiar</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="input-group">
+              <label class="input-label" for="acta-observaciones">Observaciones Generales de la Transferencia</label>
+              <textarea id="acta-observaciones" class="textarea-field-form" placeholder="Añade detalles sobre el estado de las cajas, sellos de seguridad, etc."></textarea>
+            </div>
+
+            <div style="background: var(--primary-container); color: var(--on-primary-container); padding: 12px 16px; border-radius: var(--radius-m); font-size: 0.85rem; display: flex; align-items: center; gap: 10px;">
+              <span class="material-icons-round" style="color: var(--primary);">mail</span>
+              <span>Al emitir el acta, se enviará una copia automática al correo del operador y al administrador institucional: <b>OAD.GD_053@onp.gob.pe</b></span>
+            </div>
+
+            <div class="flex justify-end gap-10 mt-10">
+              <button class="btn btn-primary" id="btn-submit-acta" onclick="submitGenerateActaTransferencia()" style="padding: 12px 24px; font-size: 1rem; font-weight: 700;">
+                <span class="material-icons-round">draw</span>
+                <span>Generar, Firmar y Notificar Acta Oficial</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Historial de Actas Emitidas -->
+        <div class="table-card">
+          <div class="table-controls">
+            <h3 class="font-title" style="margin: 0; font-size: 1.15rem;">Historial de Actas de Transferencia Emitidas</h3>
+            <button class="btn btn-secondary" onclick="loadActasHistory()">
+              <span class="material-icons-round">refresh</span>
+              <span>Refrescar</span>
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>N° Acta</th>
+                  <th>Fecha Transferencia</th>
+                  <th>Total Cajas</th>
+                  <th>Expedientes</th>
+                  <th>Folios</th>
+                  <th>Resp. ONP</th>
+                  <th>Resp. Polysistemas</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="actas-history-table-body">
+                <tr>
+                  <td colspan="8" class="text-center">Cargando historial de actas...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 
@@ -2689,6 +3228,23 @@ tr:hover td {
         <div class="input-group">
           <label class="input-label" for="modal-box-number">Número / Código de Caja</label>
           <input type="text" id="modal-box-number" class="input-field-form" placeholder="Ej: SKP-0010" required>
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="modal-box-se2">
+            Código SE2
+            <span style="font-weight: 400; color: var(--text-secondary); font-size: 0.78rem;"> — 13 caracteres alfanuméricos (ej: SE2-26-123456)</span>
+          </label>
+          <input
+            type="text"
+            id="modal-box-se2"
+            class="input-field-form"
+            placeholder="Ej: SE2-26-123456"
+            maxlength="13"
+            style="text-transform: uppercase; letter-spacing: 0.06em; font-family: monospace; font-size: 1rem;"
+            oninput="validateSE2Input(this)">
+          <small id="modal-box-se2-hint" style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block;">
+            ⚠️ El SE2 es el código físico impreso en la caja. Una vez registrado es permanente.
+          </small>
         </div>
         <div class="input-group">
           <label class="input-label" for="modal-box-qty">Cantidad Expedientes Logísticos</label>
@@ -2829,10 +3385,16 @@ tr:hover td {
         <span class="network-badge online"></span>
         <span style="color: #fff; font-weight: 700; font-size: 1.05rem;">Escanear Código de Caja</span>
       </div>
-      <button class="btn btn-danger" onclick="stopBoxCameraScanner()" style="padding: 8px 16px; border-radius: var(--radius-xl); font-size: 0.85rem;">
-        <span class="material-icons-round" style="font-size: 18px;">close</span>
-        <span>Cerrar</span>
-      </button>
+      <div class="flex align-center gap-6">
+        <button class="btn-torch-toggle" id="btn-torch-box" onclick="toggleCameraTorch('box')" title="Encender linterna">
+          <span class="material-icons-round">flashlight_on</span>
+          <span>Luz</span>
+        </button>
+        <button class="btn btn-danger" onclick="stopBoxCameraScanner()" style="padding: 8px 14px; border-radius: var(--radius-xl); font-size: 0.85rem;">
+          <span class="material-icons-round" style="font-size: 18px;">close</span>
+          <span>Cerrar</span>
+        </button>
+      </div>
     </div>
 
     <!-- Visor Cuadrado Centrado -->
@@ -2866,10 +3428,16 @@ tr:hover td {
         <span class="network-badge online"></span>
         <span style="color: #fff; font-weight: 700; font-size: 1.05rem;" id="camera-modal-caja-title">Ráfaga Activa</span>
       </div>
-      <button class="btn btn-danger" onclick="stopDocCameraScanner()" style="padding: 8px 16px; border-radius: var(--radius-xl); font-size: 0.85rem;">
-        <span class="material-icons-round" style="font-size: 18px;">stop_circle</span>
-        <span>Terminar</span>
-      </button>
+      <div class="flex align-center gap-6">
+        <button class="btn-torch-toggle" id="btn-torch-doc" onclick="toggleCameraTorch('doc')" title="Encender linterna">
+          <span class="material-icons-round">flashlight_on</span>
+          <span>Luz</span>
+        </button>
+        <button class="btn btn-danger" onclick="stopDocCameraScanner()" style="padding: 8px 14px; border-radius: var(--radius-xl); font-size: 0.85rem;">
+          <span class="material-icons-round" style="font-size: 18px;">stop_circle</span>
+          <span>Terminar</span>
+        </button>
+      </div>
     </div>
 
     <!-- Visor Cuadrado Centrado -->
@@ -2908,6 +3476,121 @@ tr:hover td {
     </div>
   </div>
 
+  <!-- MODAL: CONTEO CONTINUO DE FOLIOS RÁPIDOS (FLUJO ULTRA-PRODUCTIVO) -->
+  <div class="modal-overlay" id="modal-continuous-folios">
+    <div class="modal-card" style="max-width: 460px;">
+      <div class="modal-header" style="background: var(--primary-container); color: var(--on-primary-container);">
+        <div class="flex align-center gap-6">
+          <span class="material-icons-round">bolt</span>
+          <span class="modal-title" style="font-size: 1.1rem;">Conteo Continuo de Folios</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modal-continuous-folios')">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px; gap: 14px;">
+        <div class="flex justify-between align-center" style="background: var(--surface-variant); padding: 10px 14px; border-radius: var(--radius-m);">
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--secondary);">Progreso de Conteo:</span>
+          <span id="continuous-folio-progress-badge" class="badge proceso" style="font-size: 0.85rem;">1 de 10 pendientes</span>
+        </div>
+
+        <div style="text-align: center; margin: 4px 0;">
+          <span style="font-size: 0.8rem; color: var(--secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Expediente Físico</span>
+          <h2 id="continuous-folio-expediente" style="margin: 4px 0; font-size: 1.6rem; color: var(--primary); font-family: var(--font-title);">EXP-XXXX</h2>
+          <span style="font-size: 0.85rem; color: var(--text-secondary);" id="continuous-folio-log-info">Logística: 1 folder | 145 folios</span>
+        </div>
+
+        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px;">
+          <div class="input-group">
+            <label class="input-label" for="continuous-inp-folders">Folders</label>
+            <input type="number" id="continuous-inp-folders" class="input-field-form" value="1" min="1" style="height: 60px; font-size: 1.4rem; text-align: center; font-weight: 700;">
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="continuous-inp-folios" style="color: var(--primary); font-weight: 700;">Folios Físicos (Contados)</label>
+            <input type="number" id="continuous-inp-folios" class="input-field-form continuous-folios-input" placeholder="0" inputmode="numeric" onkeydown="if(event.key === 'Enter') saveAndNextContinuousFolio();">
+          </div>
+        </div>
+
+        <div class="flex justify-between align-center" style="font-size: 0.8rem; color: var(--secondary);">
+          <span>Estado calculado: <b id="continuous-status-preview" style="color: var(--status-success);">Coincide</b></span>
+          <span>Presiona <b>ENTER ↵</b> para avanzar</span>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: grid; grid-template-columns: 1fr 2fr;">
+        <button class="btn btn-secondary" onclick="closeModal('modal-continuous-folios')">Pausar</button>
+        <button class="btn btn-primary" onclick="saveAndNextContinuousFolio()" style="font-weight: 700; font-size: 1rem;">
+          <span>Guardar y Siguiente</span>
+          <span class="material-icons-round">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DETECCIÓN INTELIGENTE DE SOBRANTE CRUZADO -->
+  <div class="modal-overlay" id="modal-sobrante-inteligente">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header" style="background: var(--status-warn-bg); color: var(--status-warn);">
+        <div class="flex align-center gap-6">
+          <span class="material-icons-round">alt_route</span>
+          <span class="modal-title" style="font-size: 1.1rem;">Expediente Pertenece a Otra Caja</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modal-sobrante-inteligente')">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 20px; gap: 14px;">
+        <p style="font-size: 0.9rem; line-height: 1.5; margin: 0;">
+          El expediente <b id="smart-sobrante-exp" style="color: var(--primary);">EXP-XXXX</b> (Código: <span id="smart-sobrante-barcode"></span>) figura en la base de datos registrado originalmente en:
+        </p>
+        <div style="background: var(--surface-variant); padding: 14px; border-radius: var(--radius-m); text-align: center;">
+          <span style="font-size: 0.75rem; color: var(--secondary);">Caja Origen:</span>
+          <h3 id="smart-sobrante-caja-origen" style="margin: 4px 0; color: #d97706; font-size: 1.5rem;">SKP-XXXX</h3>
+          <span id="smart-sobrante-folios-log" style="font-size: 0.8rem; color: var(--text-secondary);">Folios Logísticos: 0</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">
+          ¿Qué acción deseas tomar con este expediente físico hallado en la caja activa <b id="smart-sobrante-caja-activa">SKP-YYYY</b>?
+        </p>
+      </div>
+      <div class="modal-footer" style="display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn btn-primary" onclick="confirmReassignExpedienteToActiveBox()" style="width: 100%;">
+          <span class="material-icons-round">swap_horiz</span>
+          <span>Reasignar a esta Caja Actual</span>
+        </button>
+        <button class="btn btn-secondary" onclick="confirmRegisterAsPureSobrante()" style="width: 100%;">
+          <span class="material-icons-round">add_box</span>
+          <span>Registrar como Hallazgo Sobrante</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: VISTA PREVIA Y DETALLE DE ACTA DE TRANSFERENCIA -->
+  <div class="modal-overlay" id="modal-view-acta">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-header">
+        <span class="modal-title" id="view-acta-modal-title">Acta de Transferencia Oficial</span>
+        <button class="modal-close-btn" onclick="closeModal('modal-view-acta')">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body" id="view-acta-modal-body" style="padding: 20px; gap: 14px;">
+        <!-- Se renderiza dinámicamente -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-view-acta')">Cerrar</button>
+        <button class="btn btn-primary" onclick="printActiveActa()">
+          <span class="material-icons-round">print</span>
+          <span>Imprimir / PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR OCULTO PARA IMPRESIÓN OFICIAL DEL ACTA (A4) -->
+  <div id="printable-acta-container" style="display: none;"></div>
+
   <!-- Contenedor dinámico de Notificaciones flotantes (Toasts) -->
   <div id="toast-container"
     style="position: fixed; bottom: 24px; right: 24px; z-index: 2000; display: flex; flex-direction: column; gap: 10px;">
@@ -2928,6 +3611,8 @@ tr:hover td {
           <strong>Instrucciones:</strong> Sube un archivo <strong>CSV o Excel (.xlsx)</strong> con las columnas:<br>
           <code
             style="background: var(--primary-faint, rgba(59,130,246,0.1)); padding: 2px 6px; border-radius: 4px;">idDoc, numeroCaja, numeroExpediente, codigoBarra, cantidadFoliosLog</code><br>
+          Columna opcional: <code style="background: var(--primary-faint, rgba(59,130,246,0.1)); padding: 2px 6px; border-radius: 4px;">se2</code>
+          &nbsp;&mdash; Código físico de la caja (13 chars, ej: <em>SE2-26-123456</em>). Si se incluye, se registra de forma permanente en la caja.<br>
           El campo <strong>idDoc</strong> es la llave maestra (entero único). Si existe, se actualiza; si no existe, se
           inserta.
         </div>
@@ -2963,808 +3648,37 @@ tr:hover td {
     </div>
   </div>
 
-  <!-- ESTILOS INTERNOS DE ANIMACIÓN -->
-  <style>
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes pulseOnce {
-      0% {
-        transform: scale(1);
-      }
-
-      40% {
-        transform: scale(1.08);
-      }
-
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    @keyframes flashSuccess {
-      0% {
-        background-color: var(--status-success-bg);
-      }
-
-      50% {
-        background-color: rgba(34, 197, 94, 0.35);
-      }
-
-      100% {
-        background-color: var(--status-success-bg);
-      }
-    }
-
-    @keyframes flashError {
-      0% {
-        background-color: var(--status-error-bg);
-      }
-
-      50% {
-        background-color: rgba(239, 68, 68, 0.35);
-      }
-
-      100% {
-        background-color: var(--status-error-bg);
-      }
-    }
-
-    @keyframes fadeInModal {
-      from {
-        opacity: 0;
-        transform: scale(0.94) translateY(-10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .modal-overlay.active .modal-card {
-      animation: fadeInModal 0.25s cubic-bezier(.4, 0, .2, 1);
-    }
-
-    .tx-flash-success {
-      animation: flashSuccess 0.6s ease;
-    }
-
-    .tx-flash-error {
-      animation: flashError 0.6s ease;
-    }
-
-    .tx-slide-in {
-      animation: slideInUp 0.3s ease;
-    }
-
-    .kpi-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .kpi-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
-  </style>
+  <!-- ==========================================
+       MODAL DE CONFIRMACIÓN GENÉRICO
+       (Reemplaza window.confirm() bloqueado en GAS)
+       ========================================== -->
+  <div id="modal-confirm" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-confirm-title">
+    <div class="modal-card" style="max-width: 420px;">
+      <div class="modal-header" style="gap: 10px;">
+        <span class="material-icons-round" id="modal-confirm-icon" style="font-size: 1.6rem; color: var(--accent-primary);">help_outline</span>
+        <h3 id="modal-confirm-title" style="font-size: 1rem; font-weight: 600; margin: 0;">Confirmación</h3>
+      </div>
+      <div class="modal-body">
+        <p id="modal-confirm-message" style="margin: 0; line-height: 1.6; white-space: pre-line;"></p>
+      </div>
+      <div class="modal-footer" style="justify-content: flex-end; gap: 10px;">
+        <button id="modal-confirm-cancel" class="btn btn-secondary">
+          <span class="material-icons-round">close</span>
+          <span>Cancelar</span>
+        </button>
+        <button id="modal-confirm-ok" class="btn btn-primary">
+          <span class="material-icons-round">check_circle</span>
+          <span>Confirmar</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================
        SCRIPTS DE LA APLICACIÓN
        ========================================== -->
   <!-- Base de datos local (Simulador) -->
-  <script>
-/**
- * Simulador de Base de Datos y API de Google Apps Script para Desarrollo Local.
- * Se activa únicamente si no existe la API global 'google.script.run'.
- */
-
-(function() {
-  const STORAGE_KEY = 'MOCK_ASUNTOS_DATABASE';
   
-  function getDb() {
-    let db = localStorage.getItem(STORAGE_KEY);
-    if (!db) {
-      db = initMockData();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-    } else {
-      db = JSON.parse(db);
-    }
-    return db;
-  }
-  
-  function saveDb(db) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-  }
-
-  // ─────────────────────────────────────────────────────────
-  //  DATOS INICIALES - ejemplos reales provistos por el usuario
-  // ─────────────────────────────────────────────────────────
-  function initMockData() {
-    console.log('Generando base de datos inicial OAJ (Asuntos Procesales)...');
-
-    const users = [
-      { id: 'USR-1', nombres: 'Admin', apellidos: 'Sistema', correo: 'admin@acervo.com', usuario: 'admin', contrasena: 'admin123', rol: 'Administrador', estado: 'Activo', fechaRegistro: new Date().toISOString() },
-      { id: 'USR-2', nombres: 'Juan', apellidos: 'Pérez', correo: 'juan@acervo.com', usuario: 'operador1', contrasena: '123456', rol: 'Operador', estado: 'Activo', fechaRegistro: new Date().toISOString() },
-      { id: 'USR-3', nombres: 'María', apellidos: 'Gómez', correo: 'maria@acervo.com', usuario: 'supervisor1', contrasena: '123456', rol: 'Supervisor', estado: 'Activo', fechaRegistro: new Date().toISOString() },
-      { id: 'USR-4', nombres: 'Carlos', apellidos: 'López', correo: 'carlos@acervo.com', usuario: 'operador2', contrasena: '123456', rol: 'Operador', estado: 'Inactivo', fechaRegistro: new Date().toISOString() }
-    ];
-
-    const boxes = [
-      { id: 'BOX-1', numeroCaja: 'SKP-0001', cantLog: 5, cantReg: 0, fechaApertura: '', fechaCierre: '', estado: 'Pendiente', responsable: '', observaciones: 'Asuntos Procesales OAJ - Demanda Civil Año 1991', fechaCreacion: new Date().toISOString() },
-      { id: 'BOX-2', numeroCaja: 'SKP-0002', cantLog: 10, cantReg: 0, fechaApertura: new Date().toISOString(), fechaCierre: '', estado: 'En Proceso', responsable: 'operador1', observaciones: 'Asuntos Procesales OAJ - Año 1990', fechaCreacion: new Date().toISOString() },
-      { id: 'BOX-3', numeroCaja: 'SKP-0003', cantLog: 4, cantReg: 4, fechaApertura: new Date(Date.now() - 86400000).toISOString(), fechaCierre: new Date().toISOString(), estado: 'Completada', responsable: 'operador1', observaciones: 'Sin observaciones', fechaCreacion: new Date().toISOString() },
-      { id: 'BOX-4', numeroCaja: 'SKP-0004', cantLog: 6, cantReg: 6, fechaApertura: new Date(Date.now() - 172800000).toISOString(), fechaCierre: new Date().toISOString(), estado: 'Observada', responsable: 'operador1', observaciones: 'Caja con discrepancias de folios detectadas', fechaCreacion: new Date().toISOString() },
-      { id: 'BOX-5', numeroCaja: 'SKP-0005', cantLog: 8, cantReg: 0, fechaApertura: '', fechaCierre: '', estado: 'Pendiente', responsable: '', observaciones: 'Asuntos Procesales OAJ - Laboral', fechaCreacion: new Date().toISOString() }
-    ];
-
-    // ─── MAESTRO DE EXPEDIENTES (datos reales con patrones de código de barra del usuario) ───
-    // Formato: NumeroExpediente → CodigoBarra (patrón: AAAA.NNNNNN.XX.YY.ZZ)
-    // Los primeros 2 segmentos equivalen al NumeroExpediente (ej: 1990.000006 = 1990-6)
-    const maestro = [
-      // === CAJA SKP-0001 — Año 1991 ===
-      { idDoc: 1001, numeroCaja: 'SKP-0001', numeroExpediente: '1991-1',  codigoBarra: '1991.000001.00.01.01', cantidadFolderesLog: 1, cantidadFoliosLog: 120, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 1002, numeroCaja: 'SKP-0001', numeroExpediente: '1991-2',  codigoBarra: '1991.000002.00.01.01', cantidadFolderesLog: 1, cantidadFoliosLog: 98,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 1003, numeroCaja: 'SKP-0001', numeroExpediente: '1991-5',  codigoBarra: '1991.000005.00.01.01', cantidadFolderesLog: 2, cantidadFoliosLog: 210, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 1004, numeroCaja: 'SKP-0001', numeroExpediente: '1991-10', codigoBarra: '1991.000010.00.01.01', cantidadFolderesLog: 1, cantidadFoliosLog: 154, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 1005, numeroCaja: 'SKP-0001', numeroExpediente: '1991-10', codigoBarra: '1991.000010.00.02.01', cantidadFolderesLog: 1, cantidadFoliosLog: 87,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-
-      // === CAJA SKP-0002 — Año 1990 (con DUPLICADOS) ===
-      { idDoc: 2001, numeroCaja: 'SKP-0002', numeroExpediente: '1990-1',  codigoBarra: '1990.000001.00.06.01', cantidadFolderesLog: 1, cantidadFoliosLog: 145, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 2002, numeroCaja: 'SKP-0002', numeroExpediente: '1990-2',  codigoBarra: '1990.000002.00.06.01', cantidadFolderesLog: 1, cantidadFoliosLog: 132, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 2003, numeroCaja: 'SKP-0002', numeroExpediente: '1990-3',  codigoBarra: '1990.000003.00.06.01', cantidadFolderesLog: 1, cantidadFoliosLog: 78,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 2004, numeroCaja: 'SKP-0002', numeroExpediente: '1990-4',  codigoBarra: '1990.000004.00.06.01', cantidadFolderesLog: 2, cantidadFoliosLog: 200, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 2005, numeroCaja: 'SKP-0002', numeroExpediente: '1990-5',  codigoBarra: '1990.000005.00.06.01', cantidadFolderesLog: 1, cantidadFoliosLog: 165, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      // 1990-6 TIENE DUPLICADO
-      { idDoc: 2006, numeroCaja: 'SKP-0002', numeroExpediente: '1990-6',  codigoBarra: '1990.000006.00.06.01', cantidadFolderesLog: 1, cantidadFoliosLog: 120, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 2007, numeroCaja: 'SKP-0002', numeroExpediente: '1990-6',  codigoBarra: '1990.000006.00.07.01', cantidadFolderesLog: 1, cantidadFoliosLog: 85,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 2008, numeroCaja: 'SKP-0002', numeroExpediente: '1990-7',  codigoBarra: '1990.000007.00.06.01', cantidadFolderesLog: 1, cantidadFoliosLog: 95,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 2009, numeroCaja: 'SKP-0002', numeroExpediente: '1990-9',  codigoBarra: '1990.000009.00.06.01', cantidadFolderesLog: 2, cantidadFoliosLog: 188, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 2010, numeroCaja: 'SKP-0002', numeroExpediente: '1990-10', codigoBarra: '1990.000010.00.08.01', cantidadFolderesLog: 2, cantidadFoliosLog: 200, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-
-      // === CAJA SKP-0003 — Completada ===
-      { idDoc: 3001, numeroCaja: 'SKP-0003', numeroExpediente: '1988-1', codigoBarra: '1988.000001.00.05.01', cantidadFolderesLog: 1, cantidadFoliosLog: 110, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 3002, numeroCaja: 'SKP-0003', numeroExpediente: '1988-2', codigoBarra: '1988.000002.00.05.01', cantidadFolderesLog: 1, cantidadFoliosLog: 95,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 3003, numeroCaja: 'SKP-0003', numeroExpediente: '1988-3', codigoBarra: '1988.000003.00.05.01', cantidadFolderesLog: 1, cantidadFoliosLog: 73,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 3004, numeroCaja: 'SKP-0003', numeroExpediente: '1988-4', codigoBarra: '1988.000004.00.05.01', cantidadFolderesLog: 1, cantidadFoliosLog: 140, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-
-      // === CAJA SKP-0004 — Observada ===
-      { idDoc: 4001, numeroCaja: 'SKP-0004', numeroExpediente: '1985-1', codigoBarra: '1985.000001.00.03.01', cantidadFolderesLog: 1, cantidadFoliosLog: 88,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 4002, numeroCaja: 'SKP-0004', numeroExpediente: '1985-2', codigoBarra: '1985.000002.00.03.01', cantidadFolderesLog: 1, cantidadFoliosLog: 145, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 4003, numeroCaja: 'SKP-0004', numeroExpediente: '1985-3', codigoBarra: '1985.000003.00.03.01', cantidadFolderesLog: 1, cantidadFoliosLog: 60,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 4004, numeroCaja: 'SKP-0004', numeroExpediente: '1985-4', codigoBarra: '1985.000004.00.03.01', cantidadFolderesLog: 2, cantidadFoliosLog: 200, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 4005, numeroCaja: 'SKP-0004', numeroExpediente: '1985-5', codigoBarra: '1985.000005.00.03.01', cantidadFolderesLog: 1, cantidadFoliosLog: 120, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 4006, numeroCaja: 'SKP-0004', numeroExpediente: '1985-6', codigoBarra: '1985.000006.00.03.01', cantidadFolderesLog: 1, cantidadFoliosLog: 75,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-
-      // === CAJA SKP-0005 — Pendiente ===
-      { idDoc: 5001, numeroCaja: 'SKP-0005', numeroExpediente: '1992-1', codigoBarra: '1992.000001.00.04.01', cantidadFolderesLog: 1, cantidadFoliosLog: 155, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 5002, numeroCaja: 'SKP-0005', numeroExpediente: '1992-2', codigoBarra: '1992.000002.00.04.01', cantidadFolderesLog: 1, cantidadFoliosLog: 90,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 5003, numeroCaja: 'SKP-0005', numeroExpediente: '1992-3', codigoBarra: '1992.000003.00.04.01', cantidadFolderesLog: 1, cantidadFoliosLog: 130, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 5004, numeroCaja: 'SKP-0005', numeroExpediente: '1992-4', codigoBarra: '1992.000004.00.04.01', cantidadFolderesLog: 1, cantidadFoliosLog: 75,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 5005, numeroCaja: 'SKP-0005', numeroExpediente: '1992-5', codigoBarra: '1992.000005.00.04.01', cantidadFolderesLog: 2, cantidadFoliosLog: 210, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 5006, numeroCaja: 'SKP-0005', numeroExpediente: '1992-6', codigoBarra: '1992.000006.00.04.01', cantidadFolderesLog: 1, cantidadFoliosLog: 88,  estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 5007, numeroCaja: 'SKP-0005', numeroExpediente: '1992-7', codigoBarra: '1992.000007.00.04.01', cantidadFolderesLog: 1, cantidadFoliosLog: 115, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' },
-      { idDoc: 5008, numeroCaja: 'SKP-0005', numeroExpediente: '1992-8', codigoBarra: '1992.000008.00.04.01', cantidadFolderesLog: 2, cantidadFoliosLog: 190, estadoExpediente: 'Pendiente', fechaRegistro: new Date().toISOString(), usuarioRegistro: 'admin' }
-    ];
-
-    // Inventario pre-cargado para cajas Completada y Observada
-    const today = new Date().toISOString();
-    const yesterday = new Date(Date.now() - 86400000).toISOString();
-
-    const inventario = [
-      // SKP-0003 Completada — todos coinciden
-      { idInventario: 'INV-3001', idDoc: 3001, numeroCaja: 'SKP-0003', numeroExpediente: '1988-1', codigoBarra: '1988.000001.00.05.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 110, cantidadFoliosReg: 110, estadoRevision: 'Coincide',           observaciones: 'Ok', responsable: 'operador1', fechaRevision: yesterday },
-      { idInventario: 'INV-3002', idDoc: 3002, numeroCaja: 'SKP-0003', numeroExpediente: '1988-2', codigoBarra: '1988.000002.00.05.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 95,  cantidadFoliosReg: 95,  estadoRevision: 'Coincide',           observaciones: 'Ok', responsable: 'operador1', fechaRevision: yesterday },
-      { idInventario: 'INV-3003', idDoc: 3003, numeroCaja: 'SKP-0003', numeroExpediente: '1988-3', codigoBarra: '1988.000003.00.05.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 73,  cantidadFoliosReg: 73,  estadoRevision: 'Coincide',           observaciones: 'Ok', responsable: 'operador1', fechaRevision: yesterday },
-      { idInventario: 'INV-3004', idDoc: 3004, numeroCaja: 'SKP-0003', numeroExpediente: '1988-4', codigoBarra: '1988.000004.00.05.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 140, cantidadFoliosReg: 140, estadoRevision: 'Coincide',           observaciones: 'Ok', responsable: 'operador1', fechaRevision: yesterday },
-      // SKP-0004 Observada — 2 con diferencias
-      { idInventario: 'INV-4001', idDoc: 4001, numeroCaja: 'SKP-0004', numeroExpediente: '1985-1', codigoBarra: '1985.000001.00.03.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 88,  cantidadFoliosReg: 103, estadoRevision: 'Diferencia de Folios', observaciones: 'Se encontraron 15 folios adicionales', responsable: 'operador1', fechaRevision: yesterday },
-      { idInventario: 'INV-4002', idDoc: 4002, numeroCaja: 'SKP-0004', numeroExpediente: '1985-2', codigoBarra: '1985.000002.00.03.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 145, cantidadFoliosReg: 145, estadoRevision: 'Coincide',           observaciones: 'Ok', responsable: 'operador1', fechaRevision: yesterday },
-      { idInventario: 'INV-4003', idDoc: 4003, numeroCaja: 'SKP-0004', numeroExpediente: '1985-3', codigoBarra: '1985.000003.00.03.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 60,  cantidadFoliosReg: 60,  estadoRevision: 'Coincide',           observaciones: 'Ok', responsable: 'operador1', fechaRevision: yesterday },
-      { idInventario: 'INV-4004', idDoc: 4004, numeroCaja: 'SKP-0004', numeroExpediente: '1985-4', codigoBarra: '1985.000004.00.03.01', cantidadFolderesLog: 2, cantidadFolderesReg: 2, cantidadFoliosLog: 200, cantidadFoliosReg: 200, estadoRevision: 'Coincide',           observaciones: 'Ok', responsable: 'operador1', fechaRevision: yesterday },
-      { idInventario: 'INV-4005', idDoc: 4005, numeroCaja: 'SKP-0004', numeroExpediente: '1985-5', codigoBarra: '1985.000005.00.03.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 120, cantidadFoliosReg: 95,  estadoRevision: 'Diferencia de Folios', observaciones: 'Faltan 25 folios respecto a logística', responsable: 'operador1', fechaRevision: yesterday },
-      { idInventario: 'INV-4006', idDoc: 4006, numeroCaja: 'SKP-0004', numeroExpediente: '1985-6', codigoBarra: '1985.000006.00.03.01', cantidadFolderesLog: 1, cantidadFolderesReg: 1, cantidadFoliosLog: 75,  cantidadFoliosReg: 75,  estadoRevision: 'Coincide',           observaciones: 'Ok', responsable: 'operador1', fechaRevision: yesterday }
-    ];
-
-    const incidencias = [
-      { idIncidencia: 'INC-4001', numeroCaja: 'SKP-0004', numeroExpediente: '1985-1', tipoIncidencia: 'Diferencia de Folios', descripcion: 'Se encontraron 15 folios adicionales respecto al registro logístico', responsable: 'operador1', fechaIncidencia: yesterday, estado: 'Abierta' },
-      { idIncidencia: 'INC-4005', numeroCaja: 'SKP-0004', numeroExpediente: '1985-5', tipoIncidencia: 'Diferencia de Folios', descripcion: 'Faltan 25 folios respecto a logística. Revisar si hay caída de hojas sueltas', responsable: 'operador1', fechaIncidencia: yesterday, estado: 'Abierta' }
-    ];
-
-    const auditoria = [
-      { id: 'AUD-1', fechaHora: new Date().toISOString(), usuario: 'admin', modulo: 'Sistema', accion: 'Inicializar BD', registro: 'Sistema OAJ', valorAnterior: '', valorNuevo: 'Base de datos de Asuntos Procesales cargada' }
-    ];
-
-    return { Usuarios: users, Cajas: boxes, MaestroExpedientes: maestro, Inventario: inventario, Incidencias: incidencias, Auditoria: auditoria };
-  }
-
-  function checkSimulatedOffline() {
-    return localStorage.getItem('SIMULATE_OFFLINE') === 'true';
-  }
-
-  // ─────────────────────────────────────────────────────────
-  //  API MOCK
-  // ─────────────────────────────────────────────────────────
-  const mockApi = {
-
-    // 1. Login
-    loginUser: function(username, password) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const user = db.Usuarios.find(u => u.usuario === username && u.contrasena === password);
-          if (user) {
-            if (user.estado !== 'Activo') {
-              resolve({ success: false, message: 'El usuario está inactivo. Contacte al administrador.' });
-            } else {
-              db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: new Date().toISOString(), usuario: username, modulo: 'Login', accion: 'Inicio de Sesión', registro: username, valorAnterior: '', valorNuevo: 'Exitoso' });
-              saveDb(db);
-              resolve({ success: true, user: { id: user.id, nombres: user.nombres, apellidos: user.apellidos, correo: user.correo, usuario: user.usuario, rol: user.rol, estado: user.estado } });
-            }
-          } else {
-            resolve({ success: false, message: 'Usuario o contraseña incorrectos.' });
-          }
-        }, 400);
-      });
-    },
-
-    // 2. Buscar Caja
-    searchCaja: function(cajaCode) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const box = db.Cajas.find(c => c.numeroCaja.toUpperCase() === cajaCode.toUpperCase());
-          if (!box) return resolve({ success: false, message: `La caja ${cajaCode} no está registrada en el sistema.` });
-          if (box.estado !== 'Pendiente' && box.estado !== 'En Proceso') {
-            return resolve({ success: false, code: 'BOX_CLOSED', message: `La caja ${cajaCode} está en estado '${box.estado}' (CERRADA). No se permite la edición.`, box: box });
-          }
-          if (box.estado === 'Pendiente') {
-            box.estado = 'En Proceso';
-            box.fechaApertura = new Date().toISOString();
-            db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: new Date().toISOString(), usuario: 'Sistema', modulo: 'Cajas', accion: 'Abrir Caja', registro: cajaCode, valorAnterior: 'Pendiente', valorNuevo: 'En Proceso' });
-          }
-
-          const inventarioMap = {};
-          db.Inventario.forEach(inv => {
-            if (inv.numeroCaja.toUpperCase() === cajaCode.toUpperCase()) {
-              const key = (inv.idDoc && inv.idDoc !== 'SOBRANTE') ? String(inv.idDoc) : inv.numeroExpediente.toUpperCase();
-              inventarioMap[key] = inv;
-            }
-          });
-
-          const expedientesList = [];
-          db.MaestroExpedientes.forEach(doc => {
-            if (doc.numeroCaja.toUpperCase() === cajaCode.toUpperCase()) {
-              const invMatch = inventarioMap[String(doc.idDoc)];
-              expedientesList.push({
-                idDoc: doc.idDoc,
-                numeroCaja: doc.numeroCaja,
-                numeroExpediente: doc.numeroExpediente,
-                codigoBarra: doc.codigoBarra,
-                cantidadFolderesLog: doc.cantidadFolderesLog !== undefined ? doc.cantidadFolderesLog : 1,
-                cantidadFoliosLog: doc.cantidadFoliosLog,
-                estadoExpediente: doc.estadoExpediente,
-                registrado: !!invMatch,
-                cantidadFolderesReg: invMatch ? invMatch.cantidadFolderesReg : '',
-                cantidadFoliosReg: invMatch ? invMatch.cantidadFoliosReg : '',
-                estadoRevision: invMatch ? invMatch.estadoRevision : 'Pendiente',
-                observaciones: invMatch ? invMatch.observaciones : '',
-                responsable: invMatch ? invMatch.responsable : '',
-                fechaRevision: invMatch ? invMatch.fechaRevision : ''
-              });
-            }
-          });
-
-          // Sobrantes
-          Object.keys(inventarioMap).forEach(key => {
-            const exists = expedientesList.some(e => String(e.idDoc) === key || e.numeroExpediente.toUpperCase() === key.toUpperCase());
-            if (!exists) {
-              const inv = inventarioMap[key];
-              expedientesList.push({ idDoc: inv.idDoc || 'SOBRANTE', numeroCaja: cajaCode, numeroExpediente: inv.numeroExpediente, codigoBarra: inv.codigoBarra || '', cantidadFolderesLog: 0, cantidadFoliosLog: 0, estadoExpediente: 'Sobrante', registrado: true, cantidadFolderesReg: inv.cantidadFolderesReg, cantidadFoliosReg: inv.cantidadFoliosReg, estadoRevision: inv.estadoRevision, observaciones: inv.observaciones, responsable: inv.responsable, fechaRevision: inv.fechaRevision });
-            }
-          });
-
-          saveDb(db);
-          resolve({ success: true, box: box, expedientes: expedientesList });
-        }, 500);
-      });
-    },
-
-    // 3. Guardar Expediente
-    saveInventarioRecord: function(record, forceWrite) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const cajaCode = record.numeroCaja.toUpperCase();
-          const numExp = record.numeroExpediente.trim();
-
-          const boxIndex = db.Cajas.findIndex(c => c.numeroCaja.toUpperCase() === cajaCode);
-          if (boxIndex === -1) return resolve({ success: false, message: `La caja ${cajaCode} no existe.` });
-          const box = db.Cajas[boxIndex];
-          if (box.estado !== 'Pendiente' && box.estado !== 'En Proceso') return resolve({ success: false, message: `No se puede guardar porque la caja ${cajaCode} está '${box.estado}' (CERRADA).` });
-
-          const idDoc = record.idDoc ? record.idDoc : null;
-          let invIndex = -1;
-          if (idDoc && idDoc !== 'SOBRANTE') {
-            invIndex = db.Inventario.findIndex(i => i.idDoc == idDoc);
-          } else {
-            invIndex = db.Inventario.findIndex(i => i.numeroCaja.toUpperCase() === cajaCode && i.numeroExpediente.toUpperCase() === numExp.toUpperCase());
-          }
-
-          let currentRevisionState = 'Pendiente';
-          if (invIndex !== -1) currentRevisionState = db.Inventario[invIndex].estadoRevision;
-          if (currentRevisionState === 'Coincide' && !forceWrite) return resolve({ success: false, message: `El expediente ${numExp} ya fue revisado y COINCIDE. No requiere edición.` });
-
-          const logFolders = parseInt(record.cantidadFolderesLog) || 1;
-          const regFolders = parseInt(record.cantidadFolderesReg) || 0;
-          const logFolios = parseInt(record.cantidadFoliosLog) || 0;
-          const regFolios = parseInt(record.cantidadFoliosReg) || 0;
-          let estadoRevision = record.estadoRevision;
-          if (!estadoRevision || estadoRevision === 'Pendiente') {
-            if (record.esSobrante) { estadoRevision = 'Sobrante'; }
-            else if (logFolders === regFolders && logFolios === regFolios) { estadoRevision = 'Coincide'; }
-            else { estadoRevision = 'Diferencia de Folios'; }
-          }
-
-          const timestamp = new Date().toISOString();
-          if (invIndex === -1) {
-            db.Inventario.push({ idInventario: 'INV-' + Date.now(), idDoc: idDoc || 'SOBRANTE', numeroCaja: cajaCode, numeroExpediente: numExp, codigoBarra: record.codigoBarra || '', cantidadFolderesLog: logFolders, cantidadFolderesReg: regFolders, cantidadFoliosLog: logFolios, cantidadFoliosReg: regFolios, estadoRevision: estadoRevision, observaciones: record.observaciones || '', responsable: record.responsable || 'Operador', fechaRevision: timestamp });
-            db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: timestamp, usuario: record.responsable || 'Operador', modulo: 'Inventario', accion: 'Crear Registro', registro: numExp, valorAnterior: '', valorNuevo: estadoRevision });
-          } else {
-            const inv = db.Inventario[invIndex];
-            inv.cantidadFolderesLog = logFolders;
-            inv.cantidadFolderesReg = regFolders;
-            inv.cantidadFoliosLog = logFolios;
-            inv.cantidadFoliosReg = regFolios;
-            inv.estadoRevision = estadoRevision;
-            inv.observaciones = record.observaciones || '';
-            inv.responsable = record.responsable || 'Operador';
-            inv.fechaRevision = timestamp;
-            db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: timestamp, usuario: record.responsable || 'Operador', modulo: 'Inventario', accion: 'Modificar Registro', registro: numExp, valorAnterior: currentRevisionState, valorNuevo: estadoRevision });
-          }
-
-          // Gestión de incidencias
-          if (estadoRevision !== 'Coincide') {
-            const incIndex = db.Incidencias.findIndex(i => i.numeroCaja.toUpperCase() === cajaCode && i.numeroExpediente.toUpperCase() === numExp.toUpperCase() && i.estado === 'Abierta');
-            if (incIndex === -1) {
-              db.Incidencias.push({ idIncidencia: 'INC-' + Date.now(), numeroCaja: cajaCode, numeroExpediente: numExp, tipoIncidencia: estadoRevision, descripcion: record.observaciones || 'Detectado en inventario físico', responsable: record.responsable || 'Operador', fechaIncidencia: timestamp, estado: 'Abierta' });
-            } else {
-              db.Incidencias[incIndex].tipoIncidencia = estadoRevision;
-              db.Incidencias[incIndex].descripcion = record.observaciones || 'Actualizado';
-              db.Incidencias[incIndex].fechaIncidencia = timestamp;
-            }
-          } else {
-            const incIndex = db.Incidencias.findIndex(i => i.numeroCaja.toUpperCase() === cajaCode && i.numeroExpediente.toUpperCase() === numExp.toUpperCase() && i.estado === 'Abierta');
-            if (incIndex !== -1) { db.Incidencias[incIndex].estado = 'Solucionada'; }
-          }
-
-          // Auto-cierre de caja
-          const countReg = db.Inventario.filter(i => i.numeroCaja.toUpperCase() === cajaCode).length;
-          box.cantReg = countReg;
-          if (countReg >= box.cantLog && box.estado === 'En Proceso') {
-            const hasInc = db.Inventario.some(i => i.numeroCaja.toUpperCase() === cajaCode && i.estadoRevision !== 'Coincide');
-            const nuevoEstado = hasInc ? 'Observada' : 'Completada';
-            box.estado = nuevoEstado;
-            box.fechaCierre = timestamp;
-            db.Auditoria.push({ id: 'AUD-' + Date.now() + '-caja', fechaHora: timestamp, usuario: 'Sistema', modulo: 'Cajas', accion: 'Auto Cierre', registro: cajaCode, valorAnterior: 'En Proceso', valorNuevo: nuevoEstado });
-          }
-
-          saveDb(db);
-          resolve({ success: true, estadoRevision: estadoRevision });
-        }, 300);
-      });
-    },
-
-    // 4. Sincronizar Cola Offline
-    syncOfflineRecords: function(records) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(async () => {
-          const results = [];
-          for (let i = 0; i < records.length; i++) {
-            const rec = records[i];
-            try {
-              const res = await mockApi.saveInventarioRecord(rec, false);
-              results.push({ idLocal: rec.idLocal, success: res.success, message: res.message || 'Sincronizado', estadoRevision: res.estadoRevision });
-            } catch (e) {
-              results.push({ idLocal: rec.idLocal, success: false, message: e.toString() });
-            }
-          }
-          resolve(results);
-        }, 1000);
-      });
-    },
-
-    // 5. Dashboard data (global para Admin/Supervisor; por usuario para Operadores)
-    getDashboardData: function(usuarioFiltro) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const totalCajas = db.Cajas.length;
-          const totalExpedientes = db.MaestroExpedientes.length;
-          const totalInventariados = db.Inventario.length;
-          const totalPendientes = Math.max(0, totalExpedientes - totalInventariados);
-
-          let incidenciasPorTipo = { 'Diferencia de Folios': 0, 'No Encontrado': 0, 'Duplicado': 0, 'Sobrante': 0, 'Código Incorrecto': 0 };
-          let totalIncidencias = 0;
-          db.Incidencias.forEach(inc => {
-            if (inc.estado === 'Abierta') {
-              totalIncidencias++;
-              if (incidenciasPorTipo[inc.tipoIncidencia] !== undefined) incidenciasPorTipo[inc.tipoIncidencia]++;
-            }
-          });
-
-          const scansPorUsuario = {};
-          db.Inventario.forEach(inv => {
-            const user = inv.responsable || 'Desconocido';
-            scansPorUsuario[user] = (scansPorUsuario[user] || 0) + 1;
-          });
-
-          // Producción diaria del usuario específico (hoy)
-          const hoyStr = new Date().toISOString().split('T')[0];
-          let miProduccionHoy = 0;
-          if (usuarioFiltro) {
-            db.Inventario.forEach(inv => {
-              if (inv.responsable === usuarioFiltro && inv.fechaRevision && inv.fechaRevision.startsWith(hoyStr)) {
-                miProduccionHoy++;
-              }
-            });
-          }
-
-          const demoMultiplier = 150;
-          resolve({
-            kpis: {
-              totalCajas: totalCajas * 10,
-              totalExpedientes: totalExpedientes * demoMultiplier,
-              totalInventariados: totalInventariados * demoMultiplier,
-              totalPendientes: totalPendientes * demoMultiplier,
-              totalIncidencias: totalIncidencias * 5,
-              avancePorc: ((totalInventariados / Math.max(totalExpedientes, 1)) * 100).toFixed(2),
-              miProduccionHoy: miProduccionHoy
-            },
-            graficos: { incidenciasPorTipo, scansPorUsuario },
-            cajasRecientes: db.Cajas.slice(-5).map(c => ({ numeroCaja: c.numeroCaja, cantLog: c.cantLog, cantReg: c.cantReg, estado: c.estado, responsable: c.responsable }))
-          });
-        }, 300);
-      });
-    },
-
-    // 6. Lista de Cajas
-    getBoxesList: function(page, pageSize, searchQuery, statusFilter) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const filtered = db.Cajas.filter(c => {
-            const matchQ = !searchQuery || c.numeroCaja.toLowerCase().includes(searchQuery.toLowerCase()) || (c.responsable && c.responsable.toLowerCase().includes(searchQuery.toLowerCase()));
-            const matchS = !statusFilter || c.estado === statusFilter;
-            return matchQ && matchS;
-          });
-          const start = (page - 1) * pageSize;
-          resolve({ total: filtered.length, pages: Math.ceil(filtered.length / pageSize), data: filtered.slice(start, start + pageSize) });
-        }, 300);
-      });
-    },
-
-    // 7. Lista de Expedientes
-    getMaestroList: function(page, pageSize, searchQuery, boxFilter, statusFilter) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const filtered = db.MaestroExpedientes.filter(d => {
-            const matchQ = !searchQuery || d.numeroExpediente.toLowerCase().includes(searchQuery.toLowerCase()) || String(d.codigoBarra).toLowerCase().includes(searchQuery.toLowerCase()) || String(d.idDoc).toLowerCase().includes(searchQuery.toLowerCase());
-            const matchB = !boxFilter || d.numeroCaja.toUpperCase() === boxFilter.toUpperCase();
-            const inv = db.Inventario.find(i => i.idDoc == d.idDoc);
-            const revisionState = inv ? inv.estadoRevision : 'Pendiente';
-            const matchS = !statusFilter || revisionState === statusFilter;
-            return matchQ && matchB && matchS;
-          }).map(d => {
-            const inv = db.Inventario.find(i => i.idDoc == d.idDoc);
-            return { ...d, estadoExpediente: inv ? inv.estadoRevision : 'Pendiente' };
-          });
-          const start = (page - 1) * pageSize;
-          resolve({ total: filtered.length, pages: Math.ceil(filtered.length / pageSize), data: filtered.slice(start, start + pageSize) });
-        }, 350);
-      });
-    },
-
-    // 8. Lista de Auditoría
-    getAuditoriaList: function(page, pageSize, searchQuery) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const filtered = db.Auditoria.filter(a => !searchQuery || a.usuario.toLowerCase().includes(searchQuery.toLowerCase()) || a.modulo.toLowerCase().includes(searchQuery.toLowerCase()) || a.accion.toLowerCase().includes(searchQuery.toLowerCase()) || a.registro.toLowerCase().includes(searchQuery.toLowerCase())).reverse();
-          const start = (page - 1) * pageSize;
-          resolve({ total: filtered.length, pages: Math.ceil(filtered.length / pageSize), data: filtered.slice(start, start + pageSize) });
-        }, 300);
-      });
-    },
-
-    // 9. Lista de Incidencias
-    getIncidenciasList: function(page, pageSize, boxFilter, typeFilter, statusFilter) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const filtered = db.Incidencias.filter(i => {
-            const matchB = !boxFilter || i.numeroCaja.toUpperCase() === boxFilter.toUpperCase();
-            const matchT = !typeFilter || i.tipoIncidencia === typeFilter;
-            const matchS = !statusFilter || i.estado === statusFilter;
-            return matchB && matchT && matchS;
-          }).reverse();
-          const start = (page - 1) * pageSize;
-          resolve({ total: filtered.length, pages: Math.ceil(filtered.length / pageSize), data: filtered.slice(start, start + pageSize) });
-        }, 300);
-      });
-    },
-
-    // 10. Resolver Incidencia
-    resolveIncidencia: function(idIncidencia, responsable, resolucion) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const index = db.Incidencias.findIndex(i => i.idIncidencia === idIncidencia);
-          if (index !== -1) {
-            const inc = db.Incidencias[index];
-            inc.estado = 'Solucionada';
-            inc.descripcion += ` | Solución: ${resolucion || 'Resuelto'}`;
-            db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: new Date().toISOString(), usuario: responsable, modulo: 'Incidencias', accion: 'Resolver Incidencia', registro: inc.numeroExpediente, valorAnterior: 'Abierta', valorNuevo: 'Solucionada' });
-            saveDb(db);
-            resolve({ success: true });
-          } else { resolve({ success: false, message: 'Incidencia no encontrada.' }); }
-        }, 300);
-      });
-    },
-
-    // 11. Cierre manual de caja (Validación estricta de 100% capturados)
-    closeCajaManually: function(cajaCode, responsable, observaciones) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const index = db.Cajas.findIndex(c => c.numeroCaja.toUpperCase() === cajaCode.toUpperCase());
-          if (index !== -1) {
-            const box = db.Cajas[index];
-            
-            // Validar expedientes de la caja
-            const totalDocs = db.MaestroExpedientes.filter(m => m.numeroCaja.toUpperCase() === cajaCode.toUpperCase());
-            const invDocs = db.Inventario.filter(i => i.numeroCaja.toUpperCase() === cajaCode.toUpperCase() && i.estadoRevision !== 'Pendiente' && i.cantidadFoliosReg !== '');
-            
-            if (invDocs.length < totalDocs.length) {
-              return resolve({ 
-                success: false, 
-                message: `No se puede cerrar la caja. Aún faltan ${totalDocs.length - invDocs.length} expedientes por capturar y confirmar folios.` 
-              });
-            }
-
-            const oldStatus = box.estado;
-            box.estado = 'Completada'; 
-            box.fechaCierre = new Date().toISOString(); 
-            box.responsable = responsable; 
-            box.observaciones = observaciones || 'Cierre confirmado al 100%';
-            db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: new Date().toISOString(), usuario: responsable, modulo: 'Cajas', accion: 'Cierre Completo', registro: cajaCode, valorAnterior: oldStatus, valorNuevo: 'Completada' });
-            saveDb(db);
-            resolve({ success: true });
-          } else { resolve({ success: false, message: 'La caja no fue encontrada.' }); }
-        }, 300);
-      });
-    },
-
-    // 12. Lista de Usuarios
-    getUsuariosList: function() {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          resolve(db.Usuarios.map(u => ({ id: u.id, nombres: u.nombres, apellidos: u.apellidos, correo: u.correo, usuario: u.usuario, rol: u.rol, estado: u.estado, fechaRegistro: u.fechaRegistro })));
-        }, 250);
-      });
-    },
-
-    // 13. Guardar Usuario
-    saveUsuario: function(user, adminUser) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const index = db.Usuarios.findIndex(u => u.id === user.id);
-          if (index === -1) {
-            db.Usuarios.push({ id: 'USR-' + (db.Usuarios.length + 1), nombres: user.nombres, apellidos: user.apellidos, correo: user.correo, usuario: user.usuario, contrasena: user.contrasena || '123456', rol: user.rol, estado: user.estado || 'Activo', fechaRegistro: new Date().toISOString() });
-            db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: new Date().toISOString(), usuario: adminUser, modulo: 'Usuarios', accion: 'Crear Usuario', registro: user.usuario, valorAnterior: '', valorNuevo: user.rol });
-          } else {
-            const u = db.Usuarios[index];
-            u.nombres = user.nombres; u.apellidos = user.apellidos; u.correo = user.correo; u.usuario = user.usuario;
-            if (user.contrasena) u.contrasena = user.contrasena;
-            u.rol = user.rol; u.estado = user.estado;
-            db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: new Date().toISOString(), usuario: adminUser, modulo: 'Usuarios', accion: 'Modificar Usuario', registro: user.usuario, valorAnterior: u.rol, valorNuevo: user.rol });
-          }
-          saveDb(db);
-          resolve({ success: true });
-        }, 300);
-      });
-    },
-
-    // 14. Reporte de Producción (filtrado por usuario si no es Admin/Supervisor)
-    getProductionReport: function(startDateStr, endDateStr, usuarioFiltro) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const report = [];
-
-          let start = startDateStr ? new Date(startDateStr + 'T00:00:00') : null;
-          let end   = endDateStr   ? new Date(endDateStr   + 'T23:59:59') : null;
-
-          db.Inventario.forEach(inv => {
-            const revisionDate = new Date(inv.fechaRevision);
-            let inRange = true;
-            if (start && revisionDate < start) inRange = false;
-            if (end   && revisionDate > end)   inRange = false;
-            // Filtro por usuario si se especifica
-            if (usuarioFiltro && inv.responsable !== usuarioFiltro) inRange = false;
-
-            if (inRange) {
-              report.push({
-                idInventario: inv.idInventario,
-                idDoc: inv.idDoc || 'SOBRANTE',
-                numeroCaja: inv.numeroCaja,
-                numeroExpediente: inv.numeroExpediente,
-                codigoBarra: inv.codigoBarra,
-                cantidadFoliosLog: inv.cantidadFoliosLog || 0,
-                cantidadFoliosReg: inv.cantidadFoliosReg || 0,
-                estadoRevision: inv.estadoRevision,
-                observaciones: inv.observaciones,
-                responsable: inv.responsable,
-                fechaRevision: inv.fechaRevision
-              });
-            }
-          });
-
-          report.sort((a, b) => new Date(b.fechaRevision) - new Date(a.fechaRevision));
-          resolve({ success: true, data: report });
-        }, 300);
-      });
-    },
-
-    // 15. Importación Masiva de expedientes (Admin / Supervisor)
-    importMassiveData: function(rows, adminUser) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          let inserted = 0, updated = 0, skipped = 0, errors = [];
-
-          function getFieldValue(row, possibleKeys, defaultVal = '') {
-            for (const key of possibleKeys) {
-              if (row[key] !== undefined && row[key] !== null && String(row[key]).trim() !== '') {
-                return String(row[key]).trim();
-              }
-            }
-            const rowKeys = Object.keys(row);
-            for (const pKey of possibleKeys) {
-              const matchedKey = rowKeys.find(k => k.trim().toLowerCase().replace(/[^a-z0-9]/g, '') === pKey.toLowerCase().replace(/[^a-z0-9]/g, ''));
-              if (matchedKey && row[matchedKey] !== undefined && row[matchedKey] !== null && String(row[matchedKey]).trim() !== '') {
-                return String(row[matchedKey]).trim();
-              }
-            }
-            return defaultVal;
-          }
-
-          rows.forEach((row, idx) => {
-            try {
-              const numCaja = getFieldValue(row, ['NumeroCaja', 'numeroCaja', 'Caja', 'caja', 'N° Caja', 'NroCaja', 'box']).toUpperCase();
-              const numExp = getFieldValue(row, ['NumeroExpediente', 'numeroExpediente', 'Expediente', 'expediente', 'N° Expediente', 'NroExpediente']);
-              const barcode = getFieldValue(row, ['CodigoBarra', 'codigoBarra', 'Codigo_Barra', 'Código de Barras', 'CodigoBarras', 'Barcode', 'barcode']);
-              const cantFolderes = parseInt(getFieldValue(row, ['CantidadFolderesLog', 'cantidadFolderesLog', 'Folderes', 'folderes', 'Tomos', 'tomos', 'CantidadFolderes', 'cantFolderesLog'], '1')) || 1;
-              const cantFolios = parseInt(getFieldValue(row, ['CantidadFoliosLog', 'cantidadFoliosLog', 'Folios', 'folios', 'CantidadFolios', 'cantFoliosLog'], '0')) || 0;
-
-              if (!numCaja || !numExp) {
-                skipped++;
-                errors.push(`Fila ${idx + 2}: Campos requeridos faltantes (NumeroCaja, NumeroExpediente).`);
-                return;
-              }
-
-              const cajaExists = db.Cajas.find(c => c.numeroCaja.toUpperCase() === numCaja);
-              if (!cajaExists) {
-                db.Cajas.push({ id: 'BOX-' + Date.now() + idx, numeroCaja: numCaja, cantLog: 0, cantReg: 0, fechaApertura: '', fechaCierre: '', estado: 'Pendiente', responsable: '', observaciones: 'Creada por importación masiva', fechaCreacion: new Date().toISOString() });
-              }
-
-              const idDoc = getFieldValue(row, ['ID_Doc', 'idDoc', 'ID', 'id', 'IdDoc']) || (Date.now() + idx);
-              const existing = db.MaestroExpedientes.findIndex(d => d.idDoc == idDoc);
-
-              const docRecord = {
-                idDoc: idDoc,
-                numeroCaja: numCaja,
-                numeroExpediente: numExp,
-                codigoBarra: barcode || (numExp.replace('-', '.') + '.00.01.01'),
-                cantidadFolderesLog: cantFolderes,
-                cantidadFoliosLog: cantFolios,
-                estadoExpediente: 'Pendiente',
-                fechaRegistro: new Date().toISOString(),
-                usuarioRegistro: adminUser
-              };
-
-              if (existing === -1) {
-                db.MaestroExpedientes.push(docRecord);
-                inserted++;
-              } else {
-                db.MaestroExpedientes[existing] = { ...db.MaestroExpedientes[existing], ...docRecord };
-                updated++;
-              }
-            } catch(e) {
-              skipped++;
-              errors.push(`Fila ${idx + 2}: ${e.message}`);
-            }
-          });
-
-          // Actualizar cantLog de cajas afectadas
-          db.Cajas.forEach(box => {
-            box.cantLog = db.MaestroExpedientes.filter(d => d.numeroCaja.toUpperCase() === box.numeroCaja.toUpperCase()).length;
-          });
-
-          db.Auditoria.push({ id: 'AUD-' + Date.now(), fechaHora: new Date().toISOString(), usuario: adminUser, modulo: 'Importación', accion: 'Importar Masivo', registro: `${inserted + updated} registros`, valorAnterior: '', valorNuevo: `${inserted} insertados, ${updated} actualizados, ${skipped} omitidos` });
-          saveDb(db);
-          resolve({ success: true, inserted, updated, skipped, errors: errors.slice(0, 10) });
-        }, 800);
-      });
-    },
-
-    // 16. Producción del día del usuario (para el dashboard del Operador)
-    getMyDailyProduction: function(usuario) {
-      return new Promise((resolve, reject) => {
-        if (checkSimulatedOffline()) return reject('Error de conexión de red simulado.');
-        setTimeout(() => {
-          const db = getDb();
-          const hoyStr = new Date().toISOString().split('T')[0];
-          const misRegistros = db.Inventario.filter(inv => inv.responsable === usuario && inv.fechaRevision && inv.fechaRevision.startsWith(hoyStr));
-          misRegistros.sort((a, b) => new Date(b.fechaRevision) - new Date(a.fechaRevision));
-          resolve({ success: true, total: misRegistros.length, data: misRegistros });
-        }, 200);
-      });
-    }
-  };
-
-  window.mockGoogleScriptRun = mockApi;
-})();
-
-</script>
   <!-- Lógica de control y frontend -->
   <script>
 /**
@@ -3801,8 +3715,12 @@ let html5QrDocScanner = null;
 let html5QrBoxScanner = null;
 
 // --- SISTEMA DE DETECCIÓN GAS / GITHUB PAGES / LOCAL ---
-const IS_GAS = typeof google !== 'undefined' && google.script && google.script.run;
+function isGasEnvironment() {
+  return typeof google !== 'undefined' && typeof google.script !== 'undefined' && typeof google.script.run !== 'undefined';
+}
+
 let GAS_WEB_APP_URL = localStorage.getItem('GAS_WEB_APP_URL') || 'https://script.google.com/macros/s/AKfycbyjX0AOu02UhQfURKBz4NbXETztvIcNd-MKzBPFsf2k_Sby5qDs25yZtd77gjhCzpM/exec';
+const API_TIMEOUT_MS = 30000;
 
 // Configurar URL del Servidor (Para usuarios en GitHub Pages)
 function configServerUrl() {
@@ -3824,48 +3742,58 @@ function configServerUrl() {
 // Llamador genérico a la API híbrido (GAS nativo / GitHub Pages fetch / Local)
 function callApi(functionName, ...args) {
   return new Promise((resolve, reject) => {
+    let isSettled = false;
+    const timeoutId = setTimeout(() => {
+      settleReject(new Error("El servidor tardó demasiado en responder. Verifica la conexión o vuelve a intentarlo."));
+    }, API_TIMEOUT_MS);
+    const settleResolve = (value) => {
+      if (isSettled) return;
+      isSettled = true;
+      clearTimeout(timeoutId);
+      resolve(value);
+    };
+    const settleReject = (error) => {
+      if (isSettled) return;
+      isSettled = true;
+      clearTimeout(timeoutId);
+      reject(error);
+    };
+
     // Si simulamos desconexión en local
     if (localStorage.getItem('SIMULATE_OFFLINE') === 'true') {
-      return reject(new Error("Error de conexión de red (Simulación Offline)."));
+      return settleReject(new Error("Error de conexión de red (Simulación Offline)."));
     }
 
-    // 1. Entorno Nativo Google Apps Script (Administradores / Supervisores en PC con Fortinet)
-    if (IS_GAS) {
-      google.script.run
-        .withSuccessHandler(res => {
-          if (res === null || res === undefined) {
-            resolve({ success: false, message: "El servidor completó la solicitud pero devolvió datos vacíos." });
-          } else {
-            resolve(res);
-          }
-        })
-        .withFailureHandler(err => reject(err || new Error("Error desconocido al comunicarse con el servidor.")) )[functionName](...args);
+    // 1. Entorno Nativo Google Apps Script (Evaluación dinámica en tiempo de ejecución)
+    if (isGasEnvironment()) {
+      try {
+        google.script.run
+          .withSuccessHandler(res => {
+            if (res === null || res === undefined) {
+              settleResolve({ success: false, message: "El servidor completó la solicitud pero devolvió datos vacíos." });
+            } else {
+              settleResolve(res);
+            }
+          })
+          .withFailureHandler(err => settleReject(err || new Error("Error al comunicarse con Google Apps Script.")) )[functionName](...args);
+      } catch (gasErr) {
+        console.warn("Error en google.script.run, intentando fallback:", gasErr);
+        if (GAS_WEB_APP_URL) {
+          executeFetchApi(functionName, args, settleResolve, settleReject);
+        } else {
+          settleReject(gasErr);
+        }
+      }
     } 
     // 2. Entorno GitHub Pages / Móvil Externo (Operadores con Cámara Nativa)
     else if (GAS_WEB_APP_URL) {
-      fetch(GAS_WEB_APP_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ functionName: functionName, args: args })
-      })
-      .then(response => {
-        if (!response.ok) throw new Error(`Error en servidor (${response.status})`);
-        return response.json();
-      })
-      .then(res => {
-        if (res === null || res === undefined) {
-          resolve({ success: false, message: "El servidor devolvió datos vacíos." });
-        } else {
-          resolve(res);
-        }
-      })
-      .catch(err => reject(err));
+      executeFetchApi(functionName, args, settleResolve, settleReject);
     }
     // 3. Entorno Local de Pruebas (Mock)
     else if (window.mockGoogleScriptRun && window.mockGoogleScriptRun[functionName]) {
       window.mockGoogleScriptRun[functionName](...args)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
+        .then(res => settleResolve(res))
+        .catch(err => settleReject(err));
     } 
     // 4. GitHub Pages sin URL configurada todavía
     else {
@@ -3873,21 +3801,54 @@ function callApi(functionName, ...args) {
       if (urlIngresada && urlIngresada.trim().startsWith('http')) {
         GAS_WEB_APP_URL = urlIngresada.trim();
         localStorage.setItem('GAS_WEB_APP_URL', GAS_WEB_APP_URL);
-        return callApi(functionName, ...args).then(resolve).catch(reject);
+        return callApi(functionName, ...args).then(settleResolve).catch(settleReject);
       }
-      reject(new Error("No se ha configurado la URL del servidor en esta aplicación móvil."));
+      settleReject(new Error("No se ha configurado la URL del servidor en esta aplicación móvil."));
+    }
+  });
+}
+
+function executeFetchApi(functionName, args, resolve, reject) {
+  fetch(GAS_WEB_APP_URL, {
+    method: 'POST',
+    mode: 'cors',
+    redirect: 'follow',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ functionName: functionName, args: args })
+  })
+  .then(response => {
+    if (!response.ok) throw new Error(`Error en servidor (${response.status})`);
+    return response.json();
+  })
+  .then(res => {
+    if (res === null || res === undefined) {
+      resolve({ success: false, message: "El servidor devolvió datos vacíos." });
+    } else {
+      resolve(res);
+    }
+  })
+  .catch(err => {
+    // Si fetch falla en local y existe mock, usar mock como respaldo
+    if (window.mockGoogleScriptRun && window.mockGoogleScriptRun[functionName]) {
+      console.warn("Fetch a GAS no disponible, usando simulador local:", err);
+      window.mockGoogleScriptRun[functionName](...args).then(resolve).catch(reject);
+    } else {
+      reject(err);
     }
   });
 }
 
 // --- INICIALIZACIÓN DE LA APP ---
 window.addEventListener('DOMContentLoaded', () => {
+  bindLoginEvents();
+
   // Inicializar Tema Guardado
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     document.body.classList.add('dark-mode');
     isThemeDark = true;
-    document.getElementById('theme-icon').textContent = 'light_mode';
+    const themeIcon = document.getElementById('theme-icon');
+    if (themeIcon) themeIcon.textContent = 'light_mode';
   }
 
   // Escuchar estado de conexión de red del navegador
@@ -3895,13 +3856,29 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('offline', updateNetworkStatus);
   
   // Hacer que al hacer clic en el Widget de Conexión se alterne simulación offline
-  document.getElementById('network-badge').parentNode.addEventListener('click', toggleSimulateOffline);
+  const netBadge = document.getElementById('network-badge');
+  if (netBadge && netBadge.parentNode) {
+    netBadge.parentNode.addEventListener('click', toggleSimulateOffline);
+  }
 
-  // Intentar recuperar sesión del usuario del localStorage
+  // Intentar recuperar sesión del usuario del localStorage de forma segura
   const savedUser = localStorage.getItem('currentUser');
-  if (savedUser) {
-    currentUser = JSON.parse(savedUser);
-    setupAppForUser();
+  if (savedUser && savedUser !== 'null' && savedUser !== 'undefined') {
+    try {
+      const parsed = JSON.parse(savedUser);
+      if (parsed && parsed.usuario && parsed.nombres) {
+        currentUser = parsed;
+        setupAppForUser();
+      } else {
+        localStorage.removeItem('currentUser');
+        document.getElementById('login-screen').classList.remove('hidden');
+        document.getElementById('app-container').style.display = 'none';
+      }
+    } catch(e) {
+      localStorage.removeItem('currentUser');
+      document.getElementById('login-screen').classList.remove('hidden');
+      document.getElementById('app-container').style.display = 'none';
+    }
   } else {
     // Mostrar login
     document.getElementById('login-screen').classList.remove('hidden');
@@ -3916,58 +3893,194 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- AUTENTICACIÓN ---
+let isLoggingIn = false;
+
+function bindLoginEvents() {
+  const loginForm = document.getElementById('login-form');
+  const loginBtn = document.getElementById('login-btn');
+  const loginInputs = [document.getElementById('login-username'), document.getElementById('login-password')];
+
+  if (loginForm && !loginForm.dataset.boundLogin) {
+    loginForm.dataset.boundLogin = 'true';
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      handleLogin();
+    });
+  }
+
+  if (loginBtn && !loginBtn.dataset.boundLogin) {
+    loginBtn.dataset.boundLogin = 'true';
+    loginBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      handleLogin();
+    });
+  }
+
+  loginInputs.forEach(input => {
+    if (input && !input.dataset.boundLogin) {
+      input.dataset.boundLogin = 'true';
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleLogin();
+        }
+      });
+    }
+  });
+}
+
 function handleLogin() {
-  const userInp = document.getElementById('login-username').value;
-  const passInp = document.getElementById('login-password').value;
+  if (isLoggingIn) return;
+
+  const userInpEl = document.getElementById('login-username');
+  const passInpEl = document.getElementById('login-password');
   const loginBtn = document.getElementById('login-btn');
   const loginError = document.getElementById('login-error');
 
-  loginBtn.disabled = true;
-  loginBtn.innerHTML = '<span class="material-icons-round" style="animation: spin 1s linear infinite;">sync</span> Autenticando...';
-  loginError.textContent = '';
+  const userInp = userInpEl ? userInpEl.value.trim() : '';
+  const passInp = passInpEl ? passInpEl.value.trim() : '';
+
+  if (!userInp || !passInp) {
+    if (loginError) {
+      loginError.style.display = 'block';
+      loginError.textContent = 'Por favor ingresa tu usuario y contraseña.';
+    }
+    return;
+  }
+
+  isLoggingIn = true;
+  if (loginBtn) {
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<span class="material-icons-round" style="animation: spin 1s linear infinite;">sync</span> Autenticando...';
+  }
+  if (loginError) {
+    loginError.textContent = '';
+  }
 
   callApi('loginUser', userInp, passInp)
     .then(res => {
-      loginBtn.disabled = false;
-      loginBtn.innerHTML = '<span>Ingresar</span><span class="material-icons-round">arrow_forward</span>';
+      isLoggingIn = false;
+      if (loginBtn) {
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<span>Ingresar</span><span class="material-icons-round">arrow_forward</span>';
+      }
       
-      if (res.success) {
+      if (res && res.success && res.user) {
         currentUser = res.user;
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
         setupAppForUser();
         showToast('¡Inicio de sesión exitoso!', 'success');
       } else {
-        loginError.textContent = res.message;
+        if (loginError) {
+          loginError.style.display = 'block';
+          loginError.textContent = (res && res.message) || 'Usuario o contraseña incorrectos.';
+        }
       }
     })
     .catch(err => {
-      loginBtn.disabled = false;
-      loginBtn.innerHTML = '<span>Ingresar</span><span class="material-icons-round">arrow_forward</span>';
-      loginError.textContent = "Error de conexión: " + (err.message || err);
+      isLoggingIn = false;
+      if (loginBtn) {
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<span>Ingresar</span><span class="material-icons-round">arrow_forward</span>';
+      }
+      if (loginError) {
+        loginError.style.display = 'block';
+        loginError.textContent = "Error de conexión: " + (err.message || err);
+      }
     });
 }
 
+window.handleLogin = handleLogin;
+window.configServerUrl = configServerUrl;
+
+// --- MODAL DE CONFIRMACIÓN (reemplaza window.confirm() bloqueado en GAS) ---
+/**
+ * Muestra un diálogo de confirmación personalizado (compatible con GAS sandbox).
+ * @param {string} message - Mensaje a mostrar al usuario.
+ * @param {Function} onConfirm - Callback ejecutado si el usuario confirma.
+ * @param {Object} [options] - Opciones opcionales: { title, icon, confirmText, cancelText, danger }
+ */
+function showConfirmDialog(message, onConfirm, options = {}) {
+  const overlay    = document.getElementById('modal-confirm');
+  const msgEl      = document.getElementById('modal-confirm-message');
+  const titleEl    = document.getElementById('modal-confirm-title');
+  const iconEl     = document.getElementById('modal-confirm-icon');
+  const okBtn      = document.getElementById('modal-confirm-ok');
+  const cancelBtn  = document.getElementById('modal-confirm-cancel');
+
+  if (!overlay || !msgEl || !okBtn || !cancelBtn) {
+    // Fallback a confirm() nativo si el modal no existe en el DOM
+    if (confirm(message)) onConfirm();
+    return;
+  }
+
+  // Configurar contenido
+  msgEl.textContent     = message;
+  titleEl.textContent   = options.title       || 'Confirmación';
+  iconEl.textContent    = options.icon        || 'help_outline';
+  iconEl.style.color    = options.danger      ? 'var(--status-error, #ef4444)' : 'var(--accent-primary)';
+  okBtn.querySelector('span:last-child').textContent    = options.confirmText || 'Confirmar';
+  cancelBtn.querySelector('span:last-child').textContent = options.cancelText  || 'Cancelar';
+
+  // Abrir modal
+  overlay.classList.add('active');
+
+  // Limpiar listeners previos clonando los botones
+  const newOkBtn     = okBtn.cloneNode(true);
+  const newCancelBtn = cancelBtn.cloneNode(true);
+  okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+  cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+
+  const close = () => overlay.classList.remove('active');
+
+  newOkBtn.addEventListener('click', () => {
+    close();
+    onConfirm();
+  });
+  newCancelBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  }, { once: true });
+}
+window.showConfirmDialog = showConfirmDialog;
+
 function setupAppForUser() {
+  if (!currentUser || !currentUser.nombres) {
+    document.getElementById('login-screen').classList.remove('hidden');
+    document.getElementById('app-container').style.display = 'none';
+    return;
+  }
+
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('app-container').style.display = 'flex';
   
   // Datos de usuario en sidebar
-  document.getElementById('user-name').textContent = currentUser.nombres + ' ' + currentUser.apellidos;
-  document.getElementById('user-role').textContent = currentUser.rol;
-  document.getElementById('user-avatar').textContent = (currentUser.nombres[0] + currentUser.apellidos[0]).toUpperCase();
+  const userNameEl = document.getElementById('user-name');
+  const userRoleEl = document.getElementById('user-role');
+  const userAvatarEl = document.getElementById('user-avatar');
+
+  if (userNameEl) userNameEl.textContent = (currentUser.nombres || '') + ' ' + (currentUser.apellidos || '');
+  if (userRoleEl) userRoleEl.textContent = currentUser.rol || 'Operador';
+  if (userAvatarEl) {
+    const initials = ((currentUser.nombres ? currentUser.nombres[0] : 'U') + (currentUser.apellidos ? currentUser.apellidos[0] : '')).toUpperCase();
+    userAvatarEl.textContent = initials;
+  }
 
   // Restricciones de interfaz por rol
   const menuUsuarios = document.getElementById('menu-usuarios');
   const menuAuditoria = document.getElementById('menu-auditoria');
   const menuImportar = document.getElementById('menu-importar');
+  const menuAvanceProd = document.getElementById('menu-avance-produccion');
   const menuMaestro = document.getElementById('menu-maestro');
   const menuIncidencias = document.getElementById('menu-incidencias');
+  const menuActas = document.getElementById('menu-actas');
   const btnCreateBox = document.getElementById('btn-admin-create-box');
   const panelMiProd = document.getElementById('panel-mi-produccion');
   const panelKpisGlobal = document.getElementById('panel-kpis-global');
   const panelAvanceGlobal = document.getElementById('panel-avance-global');
   const panelChartsGlobal = document.getElementById('panel-charts-global');
   const panelCajasRecientes = document.getElementById('panel-cajas-recientes');
+  const panelLeaderboard = document.getElementById('panel-productivity-leaderboard');
 
   const rol = currentUser.rol || 'Operador';
 
@@ -3976,86 +4089,146 @@ function setupAppForUser() {
     if (menuUsuarios) menuUsuarios.style.display = 'block';
     if (menuAuditoria) menuAuditoria.style.display = 'block';
     
-    // 2. ADMINISTRADOR Y SUPERVISOR: Importar Datos, Maestro de Expedientes, Incidencias
+    // 2. ADMINISTRADOR Y SUPERVISOR: Importar Datos, Avance Producción, Maestro de Expedientes, Incidencias, Actas
     if (menuImportar) menuImportar.style.display = 'block';
+    if (menuAvanceProd) menuAvanceProd.style.display = 'block';
     if (menuMaestro) menuMaestro.style.display = 'block';
     if (menuIncidencias) menuIncidencias.style.display = 'block';
+    if (menuActas) menuActas.style.display = 'block';
     if (btnCreateBox) btnCreateBox.style.display = 'inline-flex';
     
     // Dashboard Global
-    panelMiProd.style.display = 'none';
-    panelKpisGlobal.style.display = 'grid';
-    panelAvanceGlobal.style.display = 'block';
-    panelChartsGlobal.style.display = 'grid';
-    panelCajasRecientes.style.display = 'block';
+    if (panelMiProd) panelMiProd.style.display = 'none';
+    if (panelKpisGlobal) panelKpisGlobal.style.display = 'grid';
+    if (panelAvanceGlobal) panelAvanceGlobal.style.display = 'block';
+    if (panelChartsGlobal) panelChartsGlobal.style.display = 'grid';
+    if (panelCajasRecientes) panelCajasRecientes.style.display = 'block';
+    if (panelLeaderboard) panelLeaderboard.style.display = 'block';
   } else if (rol === 'Supervisor') {
     // 1. SOLO ADMINISTRADOR (Ocultos para Supervisor)
     if (menuUsuarios) menuUsuarios.style.display = 'none';
     if (menuAuditoria) menuAuditoria.style.display = 'none';
     
-    // 2. ADMINISTRADOR Y SUPERVISOR: Importar Datos, Maestro de Expedientes, Incidencias
+    // 2. ADMINISTRADOR Y SUPERVISOR: Importar Datos, Avance Producción, Maestro de Expedientes, Incidencias, Actas
     if (menuImportar) menuImportar.style.display = 'block';
+    if (menuAvanceProd) menuAvanceProd.style.display = 'block';
     if (menuMaestro) menuMaestro.style.display = 'block';
     if (menuIncidencias) menuIncidencias.style.display = 'block';
+    if (menuActas) menuActas.style.display = 'block';
     if (btnCreateBox) btnCreateBox.style.display = 'inline-flex';
     
     // Dashboard Global
-    panelMiProd.style.display = 'none';
-    panelKpisGlobal.style.display = 'grid';
-    panelAvanceGlobal.style.display = 'block';
-    panelChartsGlobal.style.display = 'grid';
-    panelCajasRecientes.style.display = 'block';
+    if (panelMiProd) panelMiProd.style.display = 'none';
+    if (panelKpisGlobal) panelKpisGlobal.style.display = 'grid';
+    if (panelAvanceGlobal) panelAvanceGlobal.style.display = 'block';
+    if (panelChartsGlobal) panelChartsGlobal.style.display = 'grid';
+    if (panelCajasRecientes) panelCajasRecientes.style.display = 'block';
+    if (panelLeaderboard) panelLeaderboard.style.display = 'block';
   } else {
-    // 3. OPERADOR: Únicamente Módulos Generales (Dashboard, Inventario Físico, Gestión de Cajas, Reporte de Producción)
+    // 3. OPERADOR: Únicamente Módulos Generales (Dashboard, Inventario Físico, Gestión de Cajas, Reporte de Producción, Actas)
     if (menuUsuarios) menuUsuarios.style.display = 'none';
     if (menuAuditoria) menuAuditoria.style.display = 'none';
     if (menuImportar) menuImportar.style.display = 'none';
+    if (menuAvanceProd) menuAvanceProd.style.display = 'none';
     if (menuMaestro) menuMaestro.style.display = 'none';
     if (menuIncidencias) menuIncidencias.style.display = 'none';
+    if (menuActas) menuActas.style.display = 'block';
     if (btnCreateBox) btnCreateBox.style.display = 'none';
     
     // Dashboard Operador (Mi Producción del Día)
-    panelMiProd.style.display = 'block';
-    panelKpisGlobal.style.display = 'none';
-    panelAvanceGlobal.style.display = 'none';
-    panelChartsGlobal.style.display = 'none';
-    panelCajasRecientes.style.display = 'none';
+    if (panelMiProd) panelMiProd.style.display = 'block';
+    if (panelKpisGlobal) panelKpisGlobal.style.display = 'none';
+    if (panelAvanceGlobal) panelAvanceGlobal.style.display = 'none';
+    if (panelChartsGlobal) panelChartsGlobal.style.display = 'none';
+    if (panelCajasRecientes) panelCajasRecientes.style.display = 'none';
+    if (panelLeaderboard) panelLeaderboard.style.display = 'none';
   }
 
   updateNetworkStatus();
   switchView('dashboard');
+  
+  // Iniciar control de inactividad de 5 minutos
+  startInactivityTracker();
+}
+
+// --- CONTROL DE INACTIVIDAD (5 MINUTOS SIN PERDER REGISTROS LOCALES) ---
+const INACTIVITY_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutos
+let inactivityTimer = null;
+
+function resetInactivityTimer() {
+  if (!currentUser) return;
+  if (inactivityTimer) clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(() => {
+    autoLogoutDueToInactivity();
+  }, INACTIVITY_TIMEOUT_MS);
+}
+
+function startInactivityTracker() {
+  const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'click'];
+  events.forEach(evt => {
+    window.removeEventListener(evt, resetInactivityTimer);
+    window.addEventListener(evt, resetInactivityTimer, { passive: true });
+  });
+  resetInactivityTimer();
+}
+
+function autoLogoutDueToInactivity() {
+  if (!currentUser) return;
+
+  // Detener cámaras si están abiertas
+  stopDocCameraScanner();
+  stopBoxCameraScanner();
+
+  // IMPORTANTE: NO borrar activeBox, activeBoxFiles ni OFFLINE_QUEUE del localStorage
+  currentUser = null;
+  localStorage.removeItem('currentUser');
+  if (inactivityTimer) clearTimeout(inactivityTimer);
+
+  // Redirigir a login
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('app-container').style.display = 'none';
+
+  const loginError = document.getElementById('login-error');
+  if (loginError) {
+    loginError.style.color = 'var(--status-warn, #d97706)';
+    loginError.textContent = '⚠️ Tu sesión se suspendió tras 5 minutos de inactividad. Tus registros locales y el avance de tu caja están protegidos.';
+  }
+
+  showToast('Sesión cerrada por inactividad. Tus registros locales están a salvo.', 'info');
 }
 
 function handleLogout() {
-  if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-    // Limpiar estados
-    currentUser = null;
-    activeBox = null;
-    activeBoxFiles = [];
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('activeBox');
-    localStorage.removeItem('activeBoxFiles');
+  showConfirmDialog(
+    '¿Estás seguro de que deseas cerrar sesión?',
+    () => {
+      if (inactivityTimer) clearTimeout(inactivityTimer);
 
-    // Detener scanners si están activos
-    stopDocCameraScanner();
-    stopBoxCameraScanner();
+      // Limpiar sesión de usuario
+      currentUser = null;
+      localStorage.removeItem('currentUser');
 
-    // Redireccionar
-    document.getElementById('login-screen').classList.remove('hidden');
-    document.getElementById('app-container').style.display = 'none';
-    
-    // Limpiar campos login
-    document.getElementById('login-username').value = '';
-    document.getElementById('login-password').value = '';
-    document.getElementById('login-error').textContent = '';
-  }
+      // Detener scanners si están activos
+      stopDocCameraScanner();
+      stopBoxCameraScanner();
+
+      // Redireccionar
+      document.getElementById('login-screen').classList.remove('hidden');
+      document.getElementById('app-container').style.display = 'none';
+
+      // Limpiar campos login
+      document.getElementById('login-username').value = '';
+      document.getElementById('login-password').value = '';
+      document.getElementById('login-error').textContent = '';
+    },
+    { title: 'Cerrar Sesión', icon: 'logout', confirmText: 'Cerrar Sesión', cancelText: 'Cancelar', danger: true }
+  );
 }
 
 // --- CONTROL DE NAVEGACIÓN ---
 function switchView(viewName) {
   // Validación de permisos según rol
   const rol = (currentUser && currentUser.rol) || 'Operador';
-  if (rol === 'Operador' && ['usuarios', 'auditoria', 'maestro', 'incidencias'].includes(viewName)) {
+  if (rol === 'Operador' && ['usuarios', 'auditoria', 'maestro', 'incidencias', 'produccion'].includes(viewName)) {
     showToast('No tienes permisos para acceder a esta sección.', 'warn');
     viewName = 'dashboard';
   } else if (rol === 'Supervisor' && ['usuarios', 'auditoria'].includes(viewName)) {
@@ -4076,9 +4249,11 @@ function switchView(viewName) {
     let title = 'Dashboard';
     if (viewName === 'inventario') title = 'Inventario Físico';
     else if (viewName === 'cajas') title = 'Gestión de Cajas';
+    else if (viewName === 'produccion') title = 'Avance de Producción Diaria (Control de Cajas)';
     else if (viewName === 'maestro') title = 'Maestro de Expedientes';
     else if (viewName === 'reportes') title = 'Reporte de Producción (Asuntos Procesales OAJ)';
     else if (viewName === 'incidencias') title = 'Gestión de Incidencias';
+    else if (viewName === 'actas') title = 'Actas de Transferencia (ONP / Polysistemas)';
     else if (viewName === 'usuarios') title = 'Gestión de Usuarios';
     else if (viewName === 'auditoria') title = 'Bitácora de Auditoría';
     
@@ -4108,7 +4283,8 @@ function loadViewData(viewName) {
   if (viewName === 'dashboard') loadDashboard();
   else if (viewName === 'inventario') renderInventarioWorkflow();
   else if (viewName === 'cajas') loadCajas(1);
-  else if (viewName === 'maestro') loadMaestro(1);
+  else if (viewName === 'produccion') loadAvanceProduccion();
+  else if (viewName === 'maestro') showMaestroSearchPrompt();
   else if (viewName === 'reportes') loadReporteProduccion(1);
   else if (viewName === 'incidencias') loadIncidencias(1);
   else if (viewName === 'usuarios') loadUsuarios();
@@ -4390,6 +4566,10 @@ function renderDashboardRecentBoxes(boxes) {
 }
 
 function renderDashboardCharts(charts) {
+  if (typeof Chart === 'undefined') {
+    console.warn("Chart.js no está cargado.");
+    return;
+  }
   const textColor = isThemeDark ? '#e2e8f0' : '#1e293b';
   const gridColor = isThemeDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)';
 
@@ -4597,10 +4777,23 @@ function restoreActiveBoxFromCache() {
 
 // Dibujar datos del menú lateral de la caja activa
 function renderActiveBoxDetails() {
+  if (!activeBox) return; // Guard: no hay caja activa (ej. durante cierre de sesión)
   document.getElementById('active-box-number').textContent = activeBox.numeroCaja;
   document.getElementById('active-box-responsable').textContent = activeBox.responsable || currentUser.usuario;
   document.getElementById('active-box-total-log').textContent = activeBox.cantLog;
-  
+
+  // Mostrar SE2 si la caja tiene código físico registrado
+  const se2Row = document.getElementById('active-box-se2-row');
+  const se2Span = document.getElementById('active-box-se2');
+  if (se2Row && se2Span) {
+    if (activeBox.se2) {
+      se2Span.textContent = activeBox.se2;
+      se2Row.style.display = 'flex';
+    } else {
+      se2Row.style.display = 'none';
+    }
+  }
+
   // Calcular cantidad ubicada vs con folios confirmados
   const countUbicados = activeBoxFiles.filter(f => f.ubicado || f.registrado).length;
   const countRegFolios = activeBoxFiles.filter(f => f.registrado && f.cantidadFoliosReg !== '' && f.cantidadFoliosReg !== null).length;
@@ -4697,10 +4890,12 @@ function renderActiveBoxFiles() {
     let regFoliosInfo = '';
     let cardExtraClass = '';
 
-    if (f.registrado && f.cantidadFoliosReg !== '' && f.cantidadFoliosReg !== null) {
+    if (f.registrado && f.cantidadFoliosReg !== '' && f.cantidadFoliosReg !== null && !isNaN(f.cantidadFoliosReg)) {
       const badgeClass = f.estadoRevision.toLowerCase().replace(/ /g, '');
       badgeHtml = `<span class="badge ${badgeClass}">${f.estadoRevision}</span>`;
-      regFoliosInfo = `Físico: <b>${f.cantidadFolderesReg} folders | ${f.cantidadFoliosReg} folios</b>`;
+      const regFolders = f.cantidadFolderesReg || 1;
+      regFoliosInfo = `Físico: <b>${regFolders} folder${regFolders > 1 ? 'es' : ''} | ${f.cantidadFoliosReg} folios</b>`;
+      cardExtraClass = 'registrado-card'; // Verde claro para indicar que ya se registró
     } else if (f.ubicado) {
       badgeHtml = `<span class="badge ubicado">Ubicado</span>`;
       regFoliosInfo = `Físico: <b style="color:var(--status-warn); font-size:0.8rem;">⚠️ Falta Conteo de Folios</b>`;
@@ -4770,10 +4965,16 @@ function handleCompletarCaja() {
     return;
   }
 
-  if (!confirm(`¿Confirmas el cierre definitivo de la caja ${activeBox.numeroCaja}?\nSe han verificado los ${activeBoxFiles.length} expedientes al 100% con sus folios confirmados.`)) {
-    return;
-  }
+  // Usar showConfirmDialog (compatible con GAS sandbox)
+  showConfirmDialog(
+    `¿Confirmas el cierre definitivo de la caja ${activeBox.numeroCaja}?\nSe han verificado los ${activeBoxFiles.length} expedientes al 100% con sus folios confirmados.`,
+    () => _ejecutarCierreCaja(),
+    { title: 'Cerrar Caja Definitivamente', icon: 'lock', confirmText: 'Cerrar Caja', danger: true }
+  );
+}
 
+// Ejecuta el cierre de caja tras confirmación (llamado como callback desde showConfirmDialog)
+function _ejecutarCierreCaja() {
   const isOnline = navigator.onLine && localStorage.getItem('SIMULATE_OFFLINE') !== 'true';
 
   if (!isOnline) {
@@ -4798,8 +4999,8 @@ function handleCompletarCaja() {
     renderActiveBoxFiles();
     showToast('Caja completada y cerrada localmente. Se sincronizará al recuperar internet.', 'success');
   } else {
-    // Cierre en el servidor
-    const obs = prompt("Ingresa alguna observación para el cierre (Opcional):", "Cierre confirmado al 100%");
+    // Cierre en el servidor (observación fija, sin prompt() bloqueado en GAS)
+    const obs = 'Cierre confirmado al 100%';
     callApi('closeCajaManually', activeBox.numeroCaja, currentUser.usuario, obs)
       .then(res => {
         if (res.success) {
@@ -4940,15 +5141,17 @@ function processScannedCode(code) {
 
   if (matchingIndices.length === 0) {
     let suggestedCode = parsedExpediente || rawClean;
-    if (confirm(`El código "${code}" (sugerido: "${suggestedCode}") no figura en la lista de la caja ${activeBox.numeroCaja}.\n¿Deseas registrarlo como un expediente SOBRANTE para esta caja?`)) {
-      openRegisterModal({
+    showConfirmDialog(
+      `El código "${code}" (sugerido: "${suggestedCode}") no figura en la lista de la caja ${activeBox.numeroCaja}.\n¿Deseas registrarlo como un expediente SOBRANTE para esta caja?`,
+      () => openRegisterModal({
         numeroCaja: activeBox.numeroCaja,
         numeroExpediente: suggestedCode,
         cantidadFoliosLog: 0,
         estadoRevision: 'Sobrante',
         esSobrante: true
-      });
-    }
+      }),
+      { title: 'Expediente Sobrante', icon: 'add_box', confirmText: 'Registrar Sobrante' }
+    );
   } else if (matchingIndices.length === 1) {
     // Coincidencia única directa
     handleSelectExpediente(matchingIndices[0]);
@@ -4977,9 +5180,12 @@ function handleSelectExpediente(index) {
       return;
     } else {
       // Supervisor/Admin puede forzar re-edición
-      if (!confirm(`El expediente ya está verificado como COINCIDE. ¿Deseas re-editar este registro?`)) {
-        return;
-      }
+      showConfirmDialog(
+        `El expediente ya está verificado como COINCIDE. ¿Deseas re-editar este registro?`,
+        () => openRegisterModal(doc),
+        { title: 'Re-editar Expediente', icon: 'edit', confirmText: 'Re-editar' }
+      );
+      return; // La apertura del modal ocurre en el callback
     }
   }
 
@@ -5513,9 +5719,11 @@ function stopDocCameraScanner() {
     });
   }
 
-  // Refrescar la interfaz al salir de la cámara
-  renderActiveBoxDetails();
-  renderActiveBoxFiles();
+  // Refrescar la interfaz al salir de la cámara (solo si hay caja activa)
+  if (activeBox) {
+    renderActiveBoxDetails();
+    renderActiveBoxFiles();
+  }
 }
 
 // PROCESAMIENTO RÁFAGA 100% EN MEMORIA (SOLO MARCA UBICADO, NO AUTORELLENA FOLIOS)
@@ -5553,10 +5761,25 @@ function processScannedCodeInBurst(code) {
   });
 
   if (matchingIndices.length === 0) {
-    // Código no encontrado en esta caja
+    // Código no encontrado en esta caja activa -> Consultar si pertenece a otra caja del lote
     playScanBeep(true);
     playScanVibrate(true);
     triggerCameraScanFlash(`⚠️ ${parsedExpediente || rawClean} no es de esta caja`, true);
+
+    // Consultar en segundo plano si pertenece a otra caja para ofrecer reasignación inteligente
+    callApi('findExpedienteInAllBoxes', rawClean)
+      .then(res => {
+        if (res && res.found && res.numeroCaja !== activeBox.numeroCaja) {
+          stopDocCameraScanner();
+          promptSmartSobranteModal({
+            numeroExpediente: res.numeroExpediente,
+            codigoBarra: res.codigoBarra,
+            cajaOrigen: res.numeroCaja,
+            cantidadFoliosLog: res.cantidadFoliosLog
+          });
+        }
+      })
+      .catch(e => console.warn("Error buscando expediente en lote:", e));
   } else {
     // Tomar el primer match (o el primero pendiente)
     let selectedIdx = matchingIndices.find(idx => !activeBoxFiles[idx].ubicado && !activeBoxFiles[idx].registrado) ?? matchingIndices[0];
@@ -5701,7 +5924,7 @@ function loadCajas(page) {
 function renderCajasTable(data) {
   const container = document.getElementById('cajas-table-body');
   if (data.length === 0) {
-    container.innerHTML = '<tr><td colspan="8" class="text-center">No se encontraron cajas con los filtros aplicados.</td></tr>';
+    container.innerHTML = '<tr><td colspan="9" class="text-center">No se encontraron cajas con los filtros aplicados.</td></tr>';
     return;
   }
 
@@ -5712,9 +5935,15 @@ function renderCajasTable(data) {
       ? `<button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" disabled><span class="material-icons-round">lock</span> Cerrada</button>`
       : `<button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="loadCajaDirectly('${b.numeroCaja}')"><span class="material-icons-round">login</span> Revisar</button>`;
     
+    // Columna SE2: badge con estilo monoespaciado si tiene valor, guion si no
+    const se2Cell = b.se2
+      ? `<span style="font-family: monospace; font-size: 0.82rem; background: var(--primary-faint, rgba(59,130,246,0.12)); color: var(--primary); padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em; font-weight: 600;">${b.se2}</span>`
+      : `<span style="color: var(--text-secondary); font-size: 0.8rem;">—</span>`;
+
     return `
       <tr>
         <td class="bold">${b.numeroCaja}</td>
+        <td>${se2Cell}</td>
         <td>${b.cantLog}</td>
         <td>${b.cantReg}</td>
         <td>${b.fechaApertura ? formatDateString(b.fechaApertura) : '-'}</td>
@@ -5739,36 +5968,60 @@ function changeCajasPage(direction) {
 
 function openCreateBoxModal() {
   document.getElementById('modal-box-number').value = '';
+  document.getElementById('modal-box-se2').value = '';
   document.getElementById('modal-box-qty').value = '';
   document.getElementById('modal-box-obs').value = '';
+  // Resetear hint del SE2
+  const hint = document.getElementById('modal-box-se2-hint');
+  if (hint) {
+    hint.style.color = 'var(--text-secondary)';
+    hint.textContent = '\u26a0\ufe0f El SE2 es el c\u00f3digo f\u00edsico impreso en la caja. Una vez registrado es permanente.';
+  }
   openModal('modal-create-box');
+}
+
+function validateSE2Input(input) {
+  const hint = document.getElementById('modal-box-se2-hint');
+  const val = input.value.trim().toUpperCase();
+  if (val.length > 0 && val.length !== 13) {
+    hint.style.color = 'var(--status-error)';
+    hint.textContent = '\u274c El SE2 debe tener exactamente 13 caracteres.';
+  } else {
+    hint.style.color = 'var(--text-secondary)';
+    hint.textContent = '\u26a0\ufe0f El SE2 es el c\u00f3digo f\u00edsico impreso en la caja. Una vez registrado es permanente.';
+  }
 }
 
 function submitCreateBox() {
   const number = document.getElementById('modal-box-number').value.trim();
+  const se2Raw = document.getElementById('modal-box-se2').value.trim().toUpperCase();
   const qty = parseInt(document.getElementById('modal-box-qty').value);
   const obs = document.getElementById('modal-box-obs').value;
 
   if (!number || isNaN(qty) || qty < 1) {
-    showToast('Ingresa un código de caja e inventario logístico correcto.', 'warn');
+    showToast('Ingresa un c\u00f3digo de caja e inventario log\u00edstico correcto.', 'warn');
+    return;
+  }
+
+  // Validar formato SE2 si se ingres\u00f3 (debe tener exactamente 13 caracteres)
+  if (se2Raw && se2Raw.length !== 13) {
+    showToast('El SE2 debe tener exactamente 13 caracteres alfanum\u00e9ricos. Ej: SE2-26-123456', 'warn');
+    document.getElementById('modal-box-se2').focus();
     return;
   }
 
   closeModal('modal-create-box');
   showToast('Guardando nueva caja...', 'info');
 
-  const payload = {
-    cajas: [{ numeroCaja: number, cantLog: qty, observaciones: obs }],
-    expedientes: [] // Vacío, ya que luego se asocian expedientes por importación o maestro
-  };
+  const cajaPayload = { numeroCaja: number, se2: se2Raw || null, cantLog: qty, observaciones: obs };
 
-  callApi('importMaestroData', payload.cajas, payload.expedientes, currentUser.usuario)
+  callApi('createCaja', cajaPayload, currentUser.usuario)
     .then(res => {
       if (res.success) {
-        showToast('Caja registrada correctamente.', 'success');
+        showToast('Caja registrada correctamente.' + (se2Raw ? ' SE2: ' + se2Raw : ''), 'success');
         loadCajas(1);
       } else {
-        showToast('No se pudo registrar la caja.', 'error');
+        showToast(res.message || 'No se pudo registrar la caja.', 'error');
       }
     })
     .catch(err => {
@@ -5778,22 +6031,50 @@ function submitCreateBox() {
 
 
 // --- VISTA 4: MAESTRO DE EXPEDIENTES (150K+) ---
+let maestroSearchTimer = null;
+
+function hasMaestroQuery() {
+  const searchEl = document.getElementById('maestro-search');
+  const boxEl = document.getElementById('maestro-box-filter');
+  const search = searchEl ? searchEl.value.trim() : '';
+  const box = boxEl ? boxEl.value.trim() : '';
+  return search !== '' || box !== '';
+}
+
+function showMaestroSearchPrompt() {
+  const container = document.getElementById('maestro-table-body');
+  if (container) {
+    container.innerHTML = '<tr><td colspan="7" class="text-center" style="color:var(--text-secondary); padding:24px;">Ingresa una caja, expediente o código de barras para consultar el maestro.</td></tr>';
+  }
+  renderPagination('maestro', 1, 0, 0);
+}
+
+function scheduleMaestroSearch() {
+  if (maestroSearchTimer) clearTimeout(maestroSearchTimer);
+  maestroSearchTimer = setTimeout(() => loadMaestro(1), 450);
+}
+
 function loadMaestro(page) {
   currentPages.maestro = page;
-  const search = document.getElementById('maestro-search').value;
-  const box = document.getElementById('maestro-box-filter').value;
+  const search = document.getElementById('maestro-search').value.trim();
+  const box = document.getElementById('maestro-box-filter').value.trim();
   const status = document.getElementById('maestro-status-filter').value;
   
   const container = document.getElementById('maestro-table-body');
-  container.innerHTML = '<tr><td colspan="6" class="text-center">Cargando maestro...</td></tr>';
+  if (!hasMaestroQuery()) {
+    showMaestroSearchPrompt();
+    return;
+  }
+
+  container.innerHTML = '<tr><td colspan="7" class="text-center">Consultando maestro...</td></tr>';
   
   callApi('getMaestroList', page, pageSizes.maestro, search, box, status)
     .then(res => {
-      renderMaestroTable(res.data);
-      renderPagination('maestro', page, res.pages, res.total);
+      renderMaestroTable(res.data || []);
+      renderPagination('maestro', page, res.pages || 0, res.total || 0);
     })
     .catch(err => {
-      container.innerHTML = `<tr><td colspan="6" class="text-center" style="color: var(--status-error);">Error al cargar: ${err.message || err}</td></tr>`;
+      container.innerHTML = `<tr><td colspan="7" class="text-center" style="color: var(--status-error);">Error al consultar: ${err.message || err}</td></tr>`;
     });
 }
 
@@ -5826,9 +6107,14 @@ function changeMaestroPage(direction) {
 
 // Herramientas de Exportación
 function exportData(format) {
-  const search = document.getElementById('maestro-search').value;
-  const box = document.getElementById('maestro-box-filter').value;
+  const search = document.getElementById('maestro-search').value.trim();
+  const box = document.getElementById('maestro-box-filter').value.trim();
   const status = document.getElementById('maestro-status-filter').value;
+
+  if (!search && !box) {
+    showToast('Ingresa una caja, expediente o código de barras antes de exportar.', 'warn');
+    return;
+  }
 
   showToast('Generando reporte de exportación...', 'info');
 
@@ -6517,6 +6803,913 @@ function submitImportData() {
       btn.innerHTML = '<span class="material-icons-round">cloud_upload</span><span>Importar Datos</span>';
       showToast('Error de conexión al importar: ' + (err.message || err), 'error');
     });
+}
+
+/**
+ * ============================================================================
+ * 1. CONTROL DE LINTERNA (TORCH / FLASHLIGHT)
+ * ============================================================================
+ */
+let isBoxTorchOn = false;
+let isDocTorchOn = false;
+
+function toggleCameraTorch(target) {
+  const isBox = target === 'box';
+  const scanner = isBox ? html5QrBoxScanner : html5QrDocScanner;
+  const btnId = isBox ? 'btn-torch-box' : 'btn-torch-doc';
+  const btn = document.getElementById(btnId);
+  
+  let currentTorchState = isBox ? isBoxTorchOn : isDocTorchOn;
+  const newTorchState = !currentTorchState;
+
+  if (isBox) isBoxTorchOn = newTorchState;
+  else isDocTorchOn = newTorchState;
+
+  if (btn) {
+    if (newTorchState) {
+      btn.classList.add('active');
+      btn.innerHTML = '<span class="material-icons-round">flashlight_off</span><span>Apagar</span>';
+    } else {
+      btn.classList.remove('active');
+      btn.innerHTML = '<span class="material-icons-round">flashlight_on</span><span>Luz</span>';
+    }
+  }
+
+  // Aplicar constraints de linterna al track de video activo
+  try {
+    const readerId = isBox ? "box-reader" : "doc-reader";
+    const videoElem = document.querySelector(`#${readerId} video`);
+    if (videoElem && videoElem.srcObject) {
+      const stream = videoElem.srcObject;
+      const track = stream.getVideoTracks()[0];
+      if (track) {
+        const capabilities = track.getCapabilities ? track.getCapabilities() : {};
+        if (capabilities.torch || track.applyConstraints) {
+          track.applyConstraints({
+            advanced: [{ torch: newTorchState }]
+          }).catch(err => console.warn("Linterna no soportada en este track:", err));
+        }
+      }
+    }
+  } catch (e) {
+    console.warn("Error toggling torch:", e);
+  }
+}
+
+/**
+ * ============================================================================
+ * 2. MODO FOLIOS RÁPIDOS (CONTEO CONTINUO 0ms CON ENTER)
+ * ============================================================================
+ */
+let continuousPendingList = [];
+let continuousCurrentIndex = 0;
+
+function startContinuousFoliosFlow() {
+  if (!activeBox || !activeBoxFiles || activeBoxFiles.length === 0) {
+    showToast('Primero abre una caja con expedientes para iniciar el conteo.', 'warn');
+    return;
+  }
+
+  // Filtrar expedientes que requieren conteo físico de folios
+  continuousPendingList = activeBoxFiles
+    .map((f, idx) => ({ ...f, originalIndex: idx }))
+    .filter(f => f.ubicado && (!f.registrado || f.cantidadFoliosReg === '' || f.cantidadFoliosReg === null || isNaN(f.cantidadFoliosReg)));
+
+  if (continuousPendingList.length === 0) {
+    const sinUbicar = activeBoxFiles.filter(f => !f.ubicado);
+    if (sinUbicar.length > 0) {
+      showToast(`Tienes ${sinUbicar.length} expedientes sin ubicar en la ráfaga. Escanéalos primero o regístralos manualmente.`, 'warn');
+    } else {
+      showToast('¡Todos los expedientes de esta caja ya tienen sus folios físicos registrados!', 'success');
+    }
+    return;
+  }
+
+  continuousCurrentIndex = 0;
+  openModal('modal-continuous-folios');
+  renderContinuousFolioCard();
+}
+
+function renderContinuousFolioCard() {
+  if (continuousCurrentIndex >= continuousPendingList.length) {
+    closeModal('modal-continuous-folios');
+    playVictoryFanfare();
+    renderActiveBoxDetails();
+    renderActiveBoxFiles();
+    showToast('🎉 ¡Excelente! Has completado el conteo de todos los folios de esta caja.', 'success');
+    return;
+  }
+
+  const item = continuousPendingList[continuousCurrentIndex];
+  const progressBadge = document.getElementById('continuous-folio-progress-badge');
+  const expTitle = document.getElementById('continuous-folio-expediente');
+  const logInfo = document.getElementById('continuous-folio-log-info');
+  const inpFolders = document.getElementById('continuous-inp-folders');
+  const inpFolios = document.getElementById('continuous-inp-folios');
+  const statusPreview = document.getElementById('continuous-status-preview');
+
+  if (progressBadge) {
+    progressBadge.textContent = `${continuousCurrentIndex + 1} de ${continuousPendingList.length} pendientes`;
+  }
+  if (expTitle) {
+    expTitle.textContent = item.numeroExpediente;
+  }
+  if (logInfo) {
+    logInfo.textContent = `Logística: ${item.cantidadFolderesLog || 1} folder | ${item.cantidadFoliosLog || 0} folios`;
+  }
+  if (inpFolders) {
+    inpFolders.value = item.cantidadFolderesReg || item.cantidadFolderesLog || 1;
+  }
+  if (inpFolios) {
+    inpFolios.value = item.cantidadFoliosReg !== undefined && item.cantidadFoliosReg !== '' ? item.cantidadFoliosReg : '';
+  }
+  if (statusPreview) {
+    statusPreview.textContent = 'Pendiente de digitar';
+    statusPreview.style.color = 'var(--secondary)';
+  }
+
+  setTimeout(() => {
+    if (inpFolios) {
+      inpFolios.focus();
+      inpFolios.select();
+    }
+  }, 100);
+}
+
+function saveAndNextContinuousFolio() {
+  if (continuousCurrentIndex >= continuousPendingList.length) return;
+
+  const item = continuousPendingList[continuousCurrentIndex];
+  const inpFolders = document.getElementById('continuous-inp-folders');
+  const inpFolios = document.getElementById('continuous-inp-folios');
+
+  const regFolders = inpFolders && inpFolders.value.trim() !== '' ? parseInt(inpFolders.value, 10) : 1;
+  const regFoliosRaw = inpFolios ? inpFolios.value.trim() : '';
+
+  if (regFoliosRaw === '' || isNaN(parseInt(regFoliosRaw, 10)) || parseInt(regFoliosRaw, 10) < 0) {
+    showToast('Ingresa la cantidad física de folios para continuar.', 'warn');
+    if (inpFolios) inpFolios.focus();
+    return;
+  }
+
+  const regFolios = parseInt(regFoliosRaw, 10);
+  const logFolders = item.cantidadFolderesLog || 1;
+  const logFolios = item.cantidadFoliosLog || 0;
+  
+  let calcStatus = 'Coincide';
+  if (regFolders !== logFolders || regFolios !== logFolios) {
+    calcStatus = 'Diferencia de Folios';
+  }
+
+  // Actualizar en activeBoxFiles
+  const targetIndex = item.originalIndex;
+  if (targetIndex !== undefined && activeBoxFiles[targetIndex]) {
+    activeBoxFiles[targetIndex].registrado = true;
+    activeBoxFiles[targetIndex].ubicado = true;
+    activeBoxFiles[targetIndex].cantidadFolderesReg = regFolders;
+    activeBoxFiles[targetIndex].cantidadFoliosReg = regFolios;
+    activeBoxFiles[targetIndex].estadoRevision = calcStatus;
+    activeBoxFiles[targetIndex].responsable = currentUser.usuario;
+    activeBoxFiles[targetIndex].fechaRevision = new Date().toISOString();
+  }
+
+  // Guardar en caché local inmediatamente
+  localStorage.setItem('activeBoxFiles', JSON.stringify(activeBoxFiles));
+
+  // Sonido y vibración corta de éxito
+  playScanBeep(false);
+  if (navigator.vibrate) {
+    try { navigator.vibrate(60); } catch(e){}
+  }
+
+  // Actualizar UI en vivo
+  renderActiveBoxDetails();
+  renderActiveBoxFiles();
+
+  // Avanzar al siguiente
+  continuousCurrentIndex++;
+  renderContinuousFolioCard();
+}
+
+/**
+ * ============================================================================
+ * 3. FANFARRIA Y VIBRACIÓN AL COMPLETAR 100% DE LA CAJA
+ * ============================================================================
+ */
+function playVictoryFanfare() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtx) {
+      const ctx = new AudioCtx();
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // Do, Mi, Sol, Do (Acorde Mayor de Victoria)
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        const startTime = ctx.currentTime + (i * 0.12);
+        gain.gain.setValueAtTime(0.01, startTime);
+        gain.gain.linearRampToValueAtTime(0.3, startTime + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(startTime);
+        osc.stop(startTime + 0.35);
+      });
+    }
+  } catch (e) {
+    console.warn("Fanfare error:", e);
+  }
+
+  if (navigator.vibrate) {
+    try {
+      navigator.vibrate([150, 80, 150, 80, 350]);
+    } catch(e){}
+  }
+}
+
+/**
+ * ============================================================================
+ * 4. DETECCIÓN INTELIGENTE DE SOBRANTES ENTRE CAJAS (REASIGNACIÓN)
+ * ============================================================================
+ */
+let smartSobrantePendingData = null;
+
+function promptSmartSobranteModal(data) {
+  smartSobrantePendingData = data;
+  document.getElementById('smart-sobrante-exp').textContent = data.numeroExpediente || '-';
+  document.getElementById('smart-sobrante-barcode').textContent = data.codigoBarra || '-';
+  document.getElementById('smart-sobrante-caja-origen').textContent = data.cajaOrigen || 'Desconocida';
+  document.getElementById('smart-sobrante-folios-log').textContent = `Folios Logísticos: ${data.cantidadFoliosLog || 0}`;
+  document.getElementById('smart-sobrante-caja-activa').textContent = activeBox.numeroCaja;
+  openModal('modal-sobrante-inteligente');
+}
+
+function confirmReassignExpedienteToActiveBox() {
+  if (!smartSobrantePendingData || !activeBox) return;
+  const d = smartSobrantePendingData;
+  closeModal('modal-sobrante-inteligente');
+
+  activeBoxFiles.push({
+    idDoc: d.idDoc || ('REASIG-' + Date.now()),
+    numeroCaja: activeBox.numeroCaja,
+    numeroExpediente: d.numeroExpediente,
+    codigoBarra: d.codigoBarra,
+    cantidadFolderesLog: 1,
+    cantidadFolderesReg: 1,
+    cantidadFoliosLog: d.cantidadFoliosLog || 0,
+    cantidadFoliosReg: d.cantidadFoliosLog || 0,
+    estadoRevision: 'Coincide',
+    observaciones: `Reasignado físicamente desde Caja ${d.cajaOrigen}`,
+    responsable: currentUser.usuario,
+    registrado: true,
+    ubicado: true
+  });
+
+  localStorage.setItem('activeBoxFiles', JSON.stringify(activeBoxFiles));
+  renderActiveBoxDetails();
+  renderActiveBoxFiles();
+  showToast(`✔ Expediente ${d.numeroExpediente} reasignado a la caja ${activeBox.numeroCaja}.`, 'success');
+}
+
+function confirmRegisterAsPureSobrante() {
+  if (!smartSobrantePendingData || !activeBox) return;
+  const d = smartSobrantePendingData;
+  closeModal('modal-sobrante-inteligente');
+
+  activeBoxFiles.push({
+    idDoc: 'SOBRANTE-' + Date.now(),
+    numeroCaja: activeBox.numeroCaja,
+    numeroExpediente: d.numeroExpediente,
+    codigoBarra: d.codigoBarra,
+    cantidadFolderesLog: 0,
+    cantidadFolderesReg: 1,
+    cantidadFoliosLog: 0,
+    cantidadFoliosReg: d.cantidadFoliosLog || 0,
+    estadoRevision: 'Sobrante',
+    observaciones: `Hallazgo sobrante (Pertenece a Caja ${d.cajaOrigen})`,
+    responsable: currentUser.usuario,
+    registrado: true,
+    ubicado: true,
+    esSobrante: true
+  });
+
+  localStorage.setItem('activeBoxFiles', JSON.stringify(activeBoxFiles));
+  renderActiveBoxDetails();
+  renderActiveBoxFiles();
+  showToast(`✔ Expediente ${d.numeroExpediente} agregado como Sobrante.`, 'info');
+}
+
+/**
+ * ============================================================================
+ * 5. PANEL DE PRODUCTIVIDAD EN VIVO POR OPERADOR
+ * ============================================================================
+ */
+function loadProductivityLeaderboard() {
+  const tbody = document.getElementById('leaderboard-table-body');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="5" class="text-center">Cargando métricas de productividad...</td></tr>';
+
+  callApi('getOperadoresProductivityStats')
+    .then(res => {
+      const data = res.data || [];
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--secondary);">No hay registros de producción hoy todavía.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = data.map((item, idx) => {
+        let badgeClass = 'bronze';
+        if (idx === 0) badgeClass = 'gold';
+        else if (idx === 1) badgeClass = 'silver';
+
+        return `
+          <tr>
+            <td><span class="leaderboard-badge ${badgeClass}">${idx + 1}</span></td>
+            <td><b>${item.responsable}</b></td>
+            <td style="color:var(--primary); font-weight:700; font-size:1.05rem;">${item.totalExpedientesHoy}</td>
+            <td style="color:var(--status-success); font-weight:600;">${item.totalFoliosHoy}</td>
+            <td>${item.totalCajasTocadas} cajas</td>
+          </tr>
+        `;
+      }).join('');
+    })
+    .catch(err => {
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center" style="color:var(--status-error);">Error al cargar productividad.</td></tr>';
+    });
+}
+
+/**
+ * ============================================================================
+ * 6. MÓDULO DE ACTAS DIGITALES DE TRANSFERENCIA (ONP / POLYSISTEMAS)
+ * ============================================================================
+ */
+let availableBoxesForActa = [];
+let selectedActaBoxes = [];
+let currentViewingActa = null;
+
+// Lienzo de Firmas Táctiles
+let signatureCanvases = { onp: null, poly: null };
+let signatureContexts = { onp: null, poly: null };
+let isDrawing = { onp: false, poly: false };
+
+function initSignatureCanvases() {
+  ['onp', 'poly'].forEach(type => {
+    const canvas = document.getElementById(`canvas-firma-${type}`);
+    if (!canvas) return;
+
+    // Ajustar dimensiones en base al contenedor
+    canvas.width = canvas.parentElement.clientWidth || 300;
+    canvas.height = 140;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#0f172a';
+    signatureCanvases[type] = canvas;
+    signatureContexts[type] = ctx;
+
+    // Eventos de Mouse
+    canvas.onmousedown = (e) => {
+      isDrawing[type] = true;
+      const rect = canvas.getBoundingClientRect();
+      ctx.beginPath();
+      ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    };
+
+    canvas.onmousemove = (e) => {
+      if (!isDrawing[type]) return;
+      const rect = canvas.getBoundingClientRect();
+      ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+      ctx.stroke();
+    };
+
+    window.addEventListener('mouseup', () => { isDrawing[type] = false; });
+
+    // Eventos Táctiles (Celulares / Tablets)
+    canvas.ontouchstart = (e) => {
+      e.preventDefault();
+      isDrawing[type] = true;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      ctx.beginPath();
+      ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    };
+
+    canvas.ontouchmove = (e) => {
+      e.preventDefault();
+      if (!isDrawing[type]) return;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+      ctx.stroke();
+    };
+
+    canvas.ontouchend = () => { isDrawing[type] = false; };
+  });
+
+  // Pre-llenar nombres si están en sesión
+  if (currentUser) {
+    const onpInp = document.getElementById('acta-onp-nombre');
+    if (onpInp && !onpInp.value) {
+      onpInp.value = `${currentUser.nombres} ${currentUser.apellidos}`.trim();
+    }
+  }
+}
+
+function clearSignatureCanvas(type) {
+  const canvas = signatureCanvases[type];
+  const ctx = signatureContexts[type];
+  if (canvas && ctx) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+function getSignatureBase64(type) {
+  const canvas = signatureCanvases[type];
+  if (!canvas) return '';
+  return canvas.toDataURL('image/png');
+}
+
+function isCanvasEmpty(type) {
+  const canvas = signatureCanvases[type];
+  if (!canvas) return true;
+  const ctx = signatureContexts[type];
+  const pixelBuffer = new Uint32Array(ctx.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
+  return !pixelBuffer.some(color => color !== 0);
+}
+
+// Cargar Cajas Completadas Disponibles
+function loadCompletedBoxesForActa() {
+  const tbody = document.getElementById('acta-boxes-table-body');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="6" class="text-center">Consultando cajas completadas en Azure SQL...</td></tr>';
+  selectedActaBoxes = [];
+  updateActaSelectionKPIs();
+
+  callApi('getCompletedBoxesWithoutActa')
+    .then(res => {
+      availableBoxesForActa = res.data || [];
+      if (availableBoxesForActa.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color:var(--secondary); padding: 20px;">No hay cajas completadas pendientes de acta. Todas las cajas cerradas ya cuentan con su acta de transferencia emitida.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = availableBoxesForActa.map((box, idx) => {
+        return `
+          <tr>
+            <td style="text-align: center;">
+              <input type="checkbox" class="acta-box-chk" value="${box.numeroCaja}" onchange="handleActaBoxCheckboxChange()">
+            </td>
+            <td><b style="color:var(--primary);">${box.numeroCaja}</b></td>
+            <td><b>${box.cantExpReg || box.cantExpLog}</b></td>
+            <td style="color:var(--status-success); font-weight:700;">${box.totalFoliosReg || '-'}</td>
+            <td>${box.responsable || '-'}</td>
+            <td>${box.fechaCierre ? box.fechaCierre.substring(0, 10) : '-'}</td>
+          </tr>
+        `;
+      }).join('');
+    })
+    .catch(err => {
+      tbody.innerHTML = `<tr><td colspan="6" class="text-center" style="color:var(--status-error);">Error: ${err.message || err}</td></tr>`;
+    });
+}
+
+function toggleSelectAllActaBoxes(masterCheckbox) {
+  const checkboxes = document.querySelectorAll('.acta-box-chk');
+  checkboxes.forEach(chk => chk.checked = masterCheckbox.checked);
+  handleActaBoxCheckboxChange();
+}
+
+function handleActaBoxCheckboxChange() {
+  const checkboxes = document.querySelectorAll('.acta-box-chk:checked');
+  selectedActaBoxes = Array.from(checkboxes).map(chk => chk.value);
+  updateActaSelectionKPIs();
+}
+
+function updateActaSelectionKPIs() {
+  const totalCajas = selectedActaBoxes.length;
+  let totalExp = 0;
+  let totalFolios = 0;
+
+  selectedActaBoxes.forEach(cajaNum => {
+    const box = availableBoxesForActa.find(b => b.numeroCaja === cajaNum);
+    if (box) {
+      totalExp += (box.cantExpReg || box.cantExpLog || 0);
+      totalFolios += (box.totalFoliosReg || 0);
+    }
+  });
+
+  const kpiCajas = document.getElementById('acta-kpi-cajas');
+  const kpiExp = document.getElementById('acta-kpi-expedientes');
+  const kpiFolios = document.getElementById('acta-kpi-folios');
+
+  if (kpiCajas) kpiCajas.textContent = totalCajas;
+  if (kpiExp) kpiExp.textContent = totalExp;
+  if (kpiFolios) kpiFolios.textContent = totalFolios;
+}
+
+// Generar y Firmar Acta Oficial
+function submitGenerateActaTransferencia() {
+  if (selectedActaBoxes.length === 0) {
+    showToast('Debes seleccionar al menos una caja para generar el acta.', 'warn');
+    return;
+  }
+
+  const onpNombre = document.getElementById('acta-onp-nombre').value.trim();
+  const onpDni = document.getElementById('acta-onp-dni').value.trim();
+  const polyNombre = document.getElementById('acta-poly-nombre').value.trim();
+  const polyDni = document.getElementById('acta-poly-dni').value.trim();
+  const obs = document.getElementById('acta-observaciones').value.trim();
+
+  if (!onpNombre || !onpDni || onpDni.length !== 8) {
+    showToast('Ingresa el Nombre Completo y DNI válido (8 dígitos) del Responsable ONP.', 'warn');
+    return;
+  }
+
+  if (!polyNombre || !polyDni || polyDni.length !== 8) {
+    showToast('Ingresa el Nombre Completo y DNI válido (8 dígitos) del Responsable Polysistemas.', 'warn');
+    return;
+  }
+
+  if (isCanvasEmpty('onp')) {
+    showToast('El Responsable ONP debe firmar en el recuadro digital.', 'warn');
+    return;
+  }
+
+  if (isCanvasEmpty('poly')) {
+    showToast('El Responsable Polysistemas debe firmar en el recuadro digital.', 'warn');
+    return;
+  }
+
+  const firmaONP = getSignatureBase64('onp');
+  const firmaPoly = getSignatureBase64('poly');
+
+  let totalExp = 0;
+  let totalFolios = 0;
+  selectedActaBoxes.forEach(cajaNum => {
+    const box = availableBoxesForActa.find(b => b.numeroCaja === cajaNum);
+    if (box) {
+      totalExp += (box.cantExpReg || box.cantExpLog || 0);
+      totalFolios += (box.totalFoliosReg || 0);
+    }
+  });
+
+  const btn = document.getElementById('btn-submit-acta');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="material-icons-round" style="animation:spin 1s linear infinite;">sync</span> Generando Acta y Notificando...';
+
+  const payload = {
+    cajas: selectedActaBoxes,
+    responsableONP_Nombre: onpNombre,
+    responsableONP_DNI: onpDni,
+    responsableONP_Firma: firmaONP,
+    responsablePoly_Nombre: polyNombre,
+    responsablePoly_DNI: polyDni,
+    responsablePoly_Firma: firmaPoly,
+    totalCajas: selectedActaBoxes.length,
+    totalExpedientes: totalExp,
+    totalFolios: totalFolios,
+    observaciones: obs,
+    creadoPor: currentUser.usuario,
+    correoOperador: currentUser.correo || ''
+  };
+
+  callApi('createActaTransferencia', payload)
+    .then(res => {
+      btn.disabled = false;
+      btn.innerHTML = '<span class="material-icons-round">draw</span><span>Generar, Firmar y Notificar Acta Oficial</span>';
+
+      if (res.success) {
+        showToast(res.message, 'success');
+        clearSignatureCanvas('onp');
+        clearSignatureCanvas('poly');
+        loadCompletedBoxesForActa();
+        loadActasHistory();
+        
+        // Cargar vista previa del acta generada
+        currentViewingActa = { ...payload, numeroActa: res.numeroActa, fechaTransferencia: new Date().toISOString() };
+        renderActaModalPreview(currentViewingActa);
+      } else {
+        showToast(res.message, 'error');
+      }
+    })
+    .catch(err => {
+      btn.disabled = false;
+      btn.innerHTML = '<span class="material-icons-round">draw</span><span>Generar, Firmar y Notificar Acta Oficial</span>';
+      showToast('Error de conexión al emitir acta: ' + (err.message || err), 'error');
+    });
+}
+
+function loadActasHistory() {
+  const tbody = document.getElementById('actas-history-table-body');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="8" class="text-center">Cargando actas registradas...</td></tr>';
+
+  callApi('getActasTransferencia')
+    .then(res => {
+      const data = res.data || [];
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="color:var(--secondary); padding:20px;">No se han emitido actas de transferencia aún.</td></tr>';
+        return;
+      }
+
+      window.actasHistoryCache = data;
+      tbody.innerHTML = data.map((acta, idx) => {
+        return `
+          <tr>
+            <td><b style="color:var(--primary);">${acta.numeroActa}</b></td>
+            <td>${acta.fechaTransferencia ? acta.fechaTransferencia.substring(0, 10) : '-'}</td>
+            <td><b>${acta.totalCajas}</b></td>
+            <td>${acta.totalExpedientes}</td>
+            <td style="color:var(--status-success); font-weight:700;">${acta.totalFolios}</td>
+            <td>${acta.responsableONP_Nombre} (${acta.responsableONP_DNI})</td>
+            <td>${acta.responsablePoly_Nombre} (${acta.responsablePoly_DNI})</td>
+            <td>
+              <button class="btn btn-secondary" onclick="viewActaDetails(${idx})" style="padding: 4px 8px; font-size: 0.75rem;">
+                <span class="material-icons-round" style="font-size:16px;">visibility</span>
+                <span>Ver / Imprimir</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    })
+    .catch(err => {
+      tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="color:var(--status-error);">Error al cargar historial de actas.</td></tr>';
+    });
+}
+
+function viewActaDetails(index) {
+  if (!window.actasHistoryCache || !window.actasHistoryCache[index]) return;
+  currentViewingActa = window.actasHistoryCache[index];
+  renderActaModalPreview(currentViewingActa);
+}
+
+function renderActaModalPreview(acta) {
+  const body = document.getElementById('view-acta-modal-body');
+  const title = document.getElementById('view-acta-modal-title');
+  if (!body) return;
+
+  title.textContent = 'Acta Oficial: ' + (acta.numeroActa || '');
+  
+  const qrDataUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=' +
+    encodeURIComponent((acta.numeroActa || '') + '|ONP-POLYSISTEMAS|' + (acta.totalCajas || 0) + 'CAJAS');
+  const firmaOnpHtml = acta.responsableONP_Firma
+    ? '<div style="margin-top: 8px;"><img src="' + acta.responsableONP_Firma + '" style="max-height: 55px; max-width: 100%; border-bottom: 1px solid #94a3b8;"></div>'
+    : '';
+  const firmaPolyHtml = acta.responsablePoly_Firma
+    ? '<div style="margin-top: 8px;"><img src="' + acta.responsablePoly_Firma + '" style="max-height: 55px; max-width: 100%; border-bottom: 1px solid #94a3b8;"></div>'
+    : '';
+
+  const html = [
+    '<div style="text-align: center; border-bottom: 2px solid var(--outline-variant); padding-bottom: 12px;">',
+    '<h3 style="margin: 0; color: var(--primary); font-family: var(--font-title); font-size: 1.3rem;">OFICINA DE NORMALIZACIÓN PREVISIONAL - ONP</h3>',
+    '<h4 style="margin: 4px 0; font-size: 1rem; color: var(--on-surface);">ACTA DE TRANSFERENCIA / DEVOLUCIÓN DE ACERVO DOCUMENTAL</h4>',
+    '<span class="badge completada" style="font-size: 0.85rem; padding: 4px 12px; margin-top: 6px;">N° ' + (acta.numeroActa || '') + '</span>',
+    '</div>',
+    '<div class="flex justify-between align-center" style="background: var(--surface-variant); padding: 12px 16px; border-radius: var(--radius-m); margin: 10px 0;">',
+    '<div>',
+    '<p style="margin: 2px 0; font-size: 0.85rem;"><b>Fecha y Hora:</b> ' + new Date(acta.fechaTransferencia || Date.now()).toLocaleString('es-PE') + '</p>',
+    '<p style="margin: 2px 0; font-size: 0.85rem;"><b>Total Cajas:</b> ' + (acta.totalCajas || 0) + ' | <b>Expedientes:</b> ' + (acta.totalExpedientes || 0) + ' | <b>Folios:</b> ' + (acta.totalFolios || 0) + '</p>',
+    '</div>',
+    '<img src="' + qrDataUrl + '" alt="Código QR del Acta" style="width: 70px; height: 70px; border-radius: 6px; border: 1px solid #cbd5e1;">',
+    '</div>',
+    '<div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px;">',
+    '<div style="border: 1px solid var(--outline-variant); padding: 12px; border-radius: var(--radius-m); text-align: center;">',
+    '<span style="font-size: 0.75rem; color: var(--primary); font-weight: 700; text-transform: uppercase;">Entregado Por (ONP)</span>',
+    '<p style="margin: 4px 0; font-weight: 700; font-size: 0.9rem;">' + (acta.responsableONP_Nombre || '') + '</p>',
+    '<span style="font-size: 0.8rem; color: var(--secondary);">DNI: ' + (acta.responsableONP_DNI || '') + '</span>',
+    firmaOnpHtml,
+    '</div>',
+    '<div style="border: 1px solid var(--outline-variant); padding: 12px; border-radius: var(--radius-m); text-align: center;">',
+    '<span style="font-size: 0.75rem; color: var(--status-success); font-weight: 700; text-transform: uppercase;">Recibido Por (Polysistemas)</span>',
+    '<p style="margin: 4px 0; font-weight: 700; font-size: 0.9rem;">' + (acta.responsablePoly_Nombre || '') + '</p>',
+    '<span style="font-size: 0.8rem; color: var(--secondary);">DNI: ' + (acta.responsablePoly_DNI || '') + '</span>',
+    firmaPolyHtml,
+    '</div>',
+    '</div>',
+    '<div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px;">',
+    '<b>Observaciones:</b> ' + (acta.observaciones || 'Sin observaciones registradas.'),
+    '</div>'
+  ].join('');
+
+  body.innerHTML = html;
+  openModal('modal-view-acta');
+}
+
+function printActiveActa() {
+  if (!currentViewingActa) return;
+  const acta = currentViewingActa;
+  const container = document.getElementById('printable-acta-container');
+  if (!container) return;
+
+  const qrDataUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=' +
+    encodeURIComponent((acta.numeroActa || '') + '|ONP-POLYSISTEMAS|' + (acta.totalCajas || 0) + 'CAJAS');
+  const firmaOnpHtml = acta.responsableONP_Firma
+    ? '<img src="' + acta.responsableONP_Firma + '" style="max-height: 70px; max-width: 200px; display: block; margin: 0 auto 6px auto;">'
+    : '<div style="height: 70px;"></div>';
+  const firmaPolyHtml = acta.responsablePoly_Firma
+    ? '<img src="' + acta.responsablePoly_Firma + '" style="max-height: 70px; max-width: 200px; display: block; margin: 0 auto 6px auto;">'
+    : '<div style="height: 70px;"></div>';
+
+  container.innerHTML = [
+    '<div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; color: #000; line-height: 1.4;">',
+    '<div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px;">',
+    '<h2 style="margin: 0; font-size: 18pt; text-transform: uppercase;">Oficina de Normalización Previsional - ONP</h2>',
+    '<h3 style="margin: 6px 0; font-size: 14pt;">ACTA OFICIAL DE TRANSFERENCIA Y DEVOLUCIÓN DE ACERVO DOCUMENTAL</h3>',
+    '<p style="margin: 4px 0; font-size: 11pt; font-weight: bold;">CÓDIGO: ' + (acta.numeroActa || '') + '</p>',
+    '</div>',
+    '<table style="width: 100%; margin-bottom: 20px; font-size: 10.5pt; border-collapse: collapse;">',
+    '<tr>',
+    '<td style="padding: 6px; border: 1px solid #999;"><b>Fecha de Emisión:</b></td>',
+    '<td style="padding: 6px; border: 1px solid #999;">' + new Date(acta.fechaTransferencia || Date.now()).toLocaleString('es-PE') + '</td>',
+    '<td style="padding: 6px; border: 1px solid #999; text-align: center;" rowspan="3"><img src="' + qrDataUrl + '" style="width: 90px; height: 90px;"></td>',
+    '</tr>',
+    '<tr>',
+    '<td style="padding: 6px; border: 1px solid #999;"><b>Total de Cajas:</b></td>',
+    '<td style="padding: 6px; border: 1px solid #999;">' + (acta.totalCajas || 0) + ' cajas documentarias</td>',
+    '</tr>',
+    '<tr>',
+    '<td style="padding: 6px; border: 1px solid #999;"><b>Volumen Documental:</b></td>',
+    '<td style="padding: 6px; border: 1px solid #999;"><b>' + (acta.totalExpedientes || 0) + '</b> expedientes &nbsp;|&nbsp; <b>' + (acta.totalFolios || 0) + '</b> folios físicos</td>',
+    '</tr>',
+    '</table>',
+    '<div style="margin-bottom: 20px;"><p style="font-size: 10.5pt; text-align: justify;">Por medio de la presente acta, se deja constancia formal de la transferencia, verificación física y devolución del acervo documental correspondiente a los asuntos procesales señalados, habiéndose verificado el contenido y foliación conforme a las normas archivísticas vigentes.</p></div>',
+    '<div style="margin-bottom: 20px; font-size: 10pt; border: 1px solid #999; padding: 10px;"><b>Observaciones Registradas:</b><br>' + (acta.observaciones || 'Conforme al 100%, sin observaciones adicionales.') + '</div>',
+    '<table style="width: 100%; margin-top: 50px; font-size: 10pt; border-collapse: collapse;"><tr>',
+    '<td style="width: 50%; text-align: center; vertical-align: bottom; padding: 10px;">' + firmaOnpHtml + '<div style="border-top: 1.5px solid #000; width: 80%; margin: 0 auto; padding-top: 4px;"><b>' + (acta.responsableONP_Nombre || '') + '</b><br>DNI: ' + (acta.responsableONP_DNI || '') + '<br><b>RESPONSABLE ONP</b></div></td>',
+    '<td style="width: 50%; text-align: center; vertical-align: bottom; padding: 10px;">' + firmaPolyHtml + '<div style="border-top: 1.5px solid #000; width: 80%; margin: 0 auto; padding-top: 4px;"><b>' + (acta.responsablePoly_Nombre || '') + '</b><br>DNI: ' + (acta.responsablePoly_DNI || '') + '<br><b>RESPONSABLE POLYSISTEMAS</b></div></td>',
+    '</tr></table>',
+    '<div style="text-align: center; margin-top: 40px; font-size: 8pt; color: #666;">Copia oficial archivada digitalmente con notificación a OAD.GD_053@onp.gob.pe</div>',
+    '</div>'
+  ].join('');
+
+  container.style.display = 'block';
+  window.print();
+  setTimeout(() => { container.style.display = 'none'; }, 1000);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VISTA: AVANCE DE PRODUCCIÓN DIARIA (CONTROL DE CAJAS PARA SUPERVISOR / ADMIN)
+// ─────────────────────────────────────────────────────────────────────────────
+let avanceProduccionAllBoxes = [];
+
+function loadAvanceProduccion() {
+  const container = document.getElementById('produccion-table-body');
+  if (!container) return;
+
+  container.innerHTML = '<tr><td colspan="9" class="text-center"><span class="material-icons-round" style="animation:spin 1s linear infinite; vertical-align:middle;">sync</span> Consultando cajas y avance de producción...</td></tr>';
+
+  callApi('getBoxesList', 1, 5000, '', '')
+    .then(res => {
+      if (res && res.data) {
+        avanceProduccionAllBoxes = res.data;
+        calculateAndRenderAvanceProduccionKPIs(avanceProduccionAllBoxes);
+        filterAvanceProduccion();
+      } else {
+        container.innerHTML = '<tr><td colspan="9" class="text-center" style="color:var(--status-error);">No se pudieron cargar las cajas.</td></tr>';
+      }
+    })
+    .catch(err => {
+      container.innerHTML = `<tr><td colspan="9" class="text-center" style="color:var(--status-error);">Error al cargar avance: ${err.message || err}</td></tr>`;
+    });
+}
+
+function calculateAndRenderAvanceProduccionKPIs(boxes) {
+  let totalCajas = boxes.length;
+  let totalExpLog = 0;
+  let totalExpReg = 0;
+  let completadas = 0;
+  let completadasExp = 0;
+  let pendientes = 0;
+  let pendientesExp = 0;
+
+  boxes.forEach(b => {
+    const log = parseInt(b.cantLog) || 0;
+    const reg = parseInt(b.cantReg) || 0;
+    totalExpLog += log;
+    totalExpReg += reg;
+
+    if (b.estado === 'Completada' || (log > 0 && reg >= log)) {
+      completadas++;
+      completadasExp += reg;
+    } else {
+      pendientes++;
+      pendientesExp += Math.max(0, log - reg);
+    }
+  });
+
+  const totalCajasEl = document.getElementById('prod-kpi-total-cajas');
+  const totalExpEl = document.getElementById('prod-kpi-total-exp');
+  const compEl = document.getElementById('prod-kpi-completadas');
+  const compExpEl = document.getElementById('prod-kpi-completadas-exp');
+  const pendEl = document.getElementById('prod-kpi-pendientes');
+  const pendExpEl = document.getElementById('prod-kpi-pendientes-exp');
+  const avanceEl = document.getElementById('prod-kpi-avance-porc');
+
+  if (totalCajasEl) totalCajasEl.textContent = totalCajas;
+  if (totalExpEl) totalExpEl.textContent = `${totalExpLog} expedientes en total`;
+  if (compEl) compEl.textContent = completadas;
+  if (compExpEl) compExpEl.textContent = `${completadasExp} expedientes listos`;
+  if (pendEl) pendEl.textContent = pendientes;
+  if (pendExpEl) pendExpEl.textContent = `${pendientesExp} expedientes por validar`;
+
+  const pct = totalExpLog > 0 ? ((totalExpReg / totalExpLog) * 100).toFixed(1) : 0;
+  if (avanceEl) avanceEl.textContent = `${pct}%`;
+}
+
+function filterAvanceProduccion() {
+  const searchInp = document.getElementById('produccion-search');
+  const statusInp = document.getElementById('produccion-status-filter');
+  
+  const query = searchInp ? searchInp.value.trim().toLowerCase() : '';
+  const statusFilter = statusInp ? statusInp.value.trim() : '';
+
+  const filtered = avanceProduccionAllBoxes.filter(b => {
+    const cajaCode = (b.numeroCaja || '').toLowerCase();
+    const se2Code = (b.se2 || '').toLowerCase();
+    const resp = (b.responsable || '').toLowerCase();
+
+    const matchesSearch = !query || cajaCode.includes(query) || se2Code.includes(query) || resp.includes(query);
+    const matchesStatus = !statusFilter || b.estado === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  renderAvanceProduccionTable(filtered);
+}
+
+function renderAvanceProduccionTable(data) {
+  const container = document.getElementById('produccion-table-body');
+  if (!container) return;
+
+  if (data.length === 0) {
+    container.innerHTML = '<tr><td colspan="9" class="text-center" style="padding: 24px; color: var(--text-secondary);">No se encontraron cajas con los filtros aplicados.</td></tr>';
+    return;
+  }
+
+  container.innerHTML = data.map(b => {
+    const log = parseInt(b.cantLog) || 0;
+    const reg = parseInt(b.cantReg) || 0;
+    const faltantes = Math.max(0, log - reg);
+    const pct = log > 0 ? Math.min(100, Math.round((reg / log) * 100)) : 0;
+    
+    // Color de barra de progreso
+    let progressBg = 'var(--primary)';
+    let progressColor = '#0284c7';
+    if (pct === 100 || b.estado === 'Completada') {
+      progressBg = 'var(--status-success, #16a34a)';
+      progressColor = 'var(--status-success, #16a34a)';
+    } else if (pct > 0) {
+      progressBg = 'var(--status-warn, #ca8a04)';
+      progressColor = 'var(--status-warn, #ca8a04)';
+    } else {
+      progressBg = 'var(--outline, #cbd5e1)';
+      progressColor = 'var(--text-secondary)';
+    }
+
+    const se2Badge = b.se2
+      ? `<span style="font-family: monospace; font-size: 0.82rem; background: var(--primary-faint, rgba(59,130,246,0.12)); color: var(--primary); padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em; font-weight: 700;">${b.se2}</span>`
+      : `<span style="color: var(--text-secondary); font-size: 0.8rem;">—</span>`;
+
+    const statusBadgeClass = (b.estado || 'Pendiente').toLowerCase().replace(' ', '');
+
+    const faltantesHtml = faltantes === 0
+      ? `<span style="color: var(--status-success, #16a34a); font-weight: 700; display: inline-flex; align-items: center; gap: 2px;"><span class="material-icons-round" style="font-size: 0.95rem;">done_all</span> 0</span>`
+      : `<span style="color: var(--status-error, #dc2626); font-weight: 700;">${faltantes}</span>`;
+
+    const isCompleted = b.estado === 'Completada';
+    const actionBtn = isCompleted
+      ? `<button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="loadCajaDirectly('${b.numeroCaja}')"><span class="material-icons-round">visibility</span> Ver Caja</button>`
+      : `<button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="loadCajaDirectly('${b.numeroCaja}')"><span class="material-icons-round">qr_code_scanner</span> Validar</button>`;
+
+    const responsableDisplay = b.responsable
+      ? `<span style="display:inline-flex; align-items:center; gap:4px;"><span class="material-icons-round" style="font-size:0.95rem; color:var(--text-secondary);">person</span> ${b.responsable}</span>`
+      : `<span style="color: var(--text-secondary); font-size: 0.8rem;">Sin asignar</span>`;
+
+    return `
+      <tr>
+        <td class="bold">${b.numeroCaja}</td>
+        <td>${se2Badge}</td>
+        <td>${responsableDisplay}</td>
+        <td style="text-align: center; font-weight: 600;">${log}</td>
+        <td style="text-align: center; font-weight: 700; color: var(--status-success, #16a34a);">${reg}</td>
+        <td style="text-align: center;">${faltantesHtml}</td>
+        <td>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="flex-grow: 1; height: 8px; background: var(--surface-variant, #f1f5f9); border-radius: 99px; overflow: hidden;">
+              <div style="width: ${pct}%; height: 100%; background: ${progressBg}; transition: width 0.3s ease; border-radius: 99px;"></div>
+            </div>
+            <span style="font-size: 0.78rem; font-weight: 700; color: ${progressColor}; min-width: 38px; text-align: right;">${pct}%</span>
+          </div>
+        </td>
+        <td><span class="badge ${statusBadgeClass}">${b.estado || 'Pendiente'}</span></td>
+        <td style="text-align: center;">${actionBtn}</td>
+      </tr>
+    `;
+  }).join('');
 }
 
 
